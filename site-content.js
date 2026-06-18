@@ -32,9 +32,9 @@ window.BUYER_GUIDE = {
         "<p><strong>1.</strong> В папке <code>Codex (~/.codex/)</code> создайте текстовый документ и переименуйте его в <code>config.toml</code>.</p>" +
         "<p>Путь должен быть таким: <code>~/.codex/config.toml</code></p>" +
         "<p>После этого вставьте в файл следующую конфигурацию:</p>" +
-        "<pre><code>model_provider = \"OpenAI\"\nmodel = \"gpt-5.5\"\nreview_model = \"gpt-5.5\"\nmodel_reasoning_effort = \"xhigh\"\ndisable_response_storage = true\nnetwork_access = \"enabled\"\nwindows_wsl_setup_acknowledged = true\n\n[model_providers.OpenAI]\nname = \"OpenAI\"\nbase_url = \"https://api.byesu.com\"\nwire_api = \"responses\"\nrequires_openai_auth = true\n\n[features]\ngoals = true</code></pre>" +
+        "<pre><code>model_provider = \"OpenAI\"\nmodel = \"gpt-5.5\"\nreview_model = \"gpt-5.5\"\nmodel_reasoning_effort = \"medium\"\ndisable_response_storage = true\nnetwork_access = \"enabled\"\nwindows_wsl_setup_acknowledged = true\nplan_mode_reasoning_effort = \"xhigh\"\n\n[model_providers.OpenAI]\nname = \"OpenAI\"\nbase_url = \"https://byesu.com/v1\"\nwire_api = \"responses\"\nrequires_openai_auth = true\n\n[features]\ngoals = true</code></pre>" +
         "<p><strong>2.</strong> После этого в той же папке <code>Codex (~/.codex/)</code> откройте файл <code>auth.json</code> и вставьте туда:</p>" +
-        "<pre><code>{\n  \"OPENAI_API_KEY\": \"ваш_апи_ключ\"\n}</code></pre>" +
+        "<pre><code>{\n  \"OPENAI_API_KEY\": \"ваш_aпи_ключ\",\n  \"auth_mode\": \"apikey\"\n}</code></pre>" +
         "<p><strong>3.</strong> После этого все готово, можно пользоваться.</p>",
     },
     {
