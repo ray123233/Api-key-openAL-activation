@@ -1,11 +1,11 @@
-window.BUYER_GUIDE = {
+﻿window.BUYER_GUIDE = {
   lang: "ru",
   author: "ray127polite1",
   pageTitle: "Инструкция по использованию API key GPT Plus",
   eyebrow: "Windows / macOS · API инструкция",
   title: "Инструкция по использованию API key GPT Plus",
   subtitle:
-    "Пошаговая инструкция для подключения API key в Codex и Opencode на Windows и macOS. Просто повторяйте шаги по порядку.",
+    "Пошаговая инструкция для подключения API key в Codex и Opencode на Windows и macOS. Codex - рекомендуемый вариант. Просто повторяйте шаги по порядку.",
   primaryAction: {
     label: "Начать настройку",
     href: "#codex",
@@ -14,6 +14,7 @@ window.BUYER_GUIDE = {
   meta: [
     { label: "Подходит для", value: "Codex / Opencode" },
     { label: "Система", value: "Windows / macOS" },
+    { label: "Бонус", value: "🔴 +1 млн токенов за отзыв" },
     { label: "Настройка", value: "5-10 минут" },
   ],
   sections: [
@@ -22,20 +23,25 @@ window.BUYER_GUIDE = {
       title: "Что понадобится",
       note: "Коротко перед началом настройки.",
       html:
-        "<p>Для начала работы вам нужен выданный API key OpenAI.</p>",
+        "<p>Для начала работы вам нужен выданный API key OpenAI.</p>" +
+        "<p style=\"color:#dc2626;font-weight:700;\">Уважаемый покупатель, пожалуйста, подтвердите получение товара. За отзыв при покупке от 5 млн токенов я дополнительно пополню ваш ключ на 1 млн токенов.</p>",
     },
     {
       id: "codex",
-      title: "Codex",
-      note: "Настройка API key для Codex.",
+      title: "Codex - рекомендуемый вариант",
+      note: "Рекомендуемый способ настройки API key.",
       html:
-        "<p><strong>1.</strong> В папке <code>Codex (~/.codex/)</code> создайте текстовый документ и переименуйте его в <code>config.toml</code>.</p>" +
-        "<p>Путь должен быть таким: <code>~/.codex/config.toml</code></p>" +
-        "<p>После этого вставьте в файл следующую конфигурацию:</p>" +
+        "<p><strong>1.</strong> Откройте Codex и авторизируйтесь с помощью API key. Ключ выглядит примерно так: <code>sk-........</code>. При авторизации вставляйте ключ полностью и без кавычек.</p>" +
+        "<p><strong>2.</strong> Перейдите в папку <code>.codex</code>. На Windows нажмите <code>Win + R</code>, вставьте <code>%userprofile%\\.codex</code> и нажмите Enter. Если папка не открылась, сначала запустите Codex один раз, чтобы он создал папку автоматически.</p>" +
+        "<p><strong>3.</strong> Найдите файл <code>config.toml</code> и откройте его в Блокноте. Если файла нет, создайте текстовый документ и переименуйте его в <code>config.toml</code>. Если Windows спросит про изменение расширения файла, подтвердите действие.</p>" +
+        "<p>Удалите все содержимое файла <code>config.toml</code>, после чего вставьте туда эту конфигурацию:</p>" +
         "<pre><code>model_provider = \"OpenAI\"\nmodel = \"gpt-5.5\"\nreview_model = \"gpt-5.5\"\nmodel_reasoning_effort = \"medium\"\ndisable_response_storage = true\nnetwork_access = \"enabled\"\nwindows_wsl_setup_acknowledged = true\nplan_mode_reasoning_effort = \"xhigh\"\n\n[model_providers.OpenAI]\nname = \"OpenAI\"\nbase_url = \"https://byesu.com/v1\"\nwire_api = \"responses\"\nrequires_openai_auth = true\n\n[features]\ngoals = true</code></pre>" +
-        "<p><strong>2.</strong> После этого в той же папке <code>Codex (~/.codex/)</code> откройте файл <code>auth.json</code> и вставьте туда:</p>" +
+        "<p>Сохраните данную конфигурацию через <code>Ctrl + S</code> и закройте Блокнот.</p>" +
+        "<p><strong>4.</strong> В этой же папке <code>.codex</code> откройте файл <code>auth.json</code>. Если файла нет, создайте текстовый документ и переименуйте его в <code>auth.json</code>. Если Windows спросит про изменение расширения файла, подтвердите действие.</p>" +
+        "<p>Удалите все содержимое файла <code>auth.json</code> и вставьте туда этот текст:</p>" +
         "<pre><code>{\n  \"OPENAI_API_KEY\": \"ваш_aпи_ключ\",\n  \"auth_mode\": \"apikey\"\n}</code></pre>" +
-        "<p><strong>3.</strong> После этого все готово, можно пользоваться.</p>",
+        "<p>Замените <code>ваш_aпи_ключ</code> на свой API key. В этом файле кавычки вокруг ключа оставьте, потому что это JSON. После этого сохраните файл через <code>Ctrl + S</code> и закройте Блокнот.</p>" +
+        "<p><strong>5.</strong> Полностью закройте Codex и откройте его заново. После перезапуска можно пользоваться Codex с подключенным API key.</p>",
     },
     {
       id: "opencode",
