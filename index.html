@@ -386,16 +386,11 @@
         <aside class="panel panel-side">
           <p class="side-title">Быстрые переходы</p>
           <div class="side-list" id="quick-links"></div>
-
-          <p class="side-title" style="margin-top: 20px;">Подсказки</p>
-          <div class="mini-list" id="tips"></div>
         </aside>
       </section>
-
-      <footer class="footer" id="footer-note"></footer>
     </main>
 
-    <script src="./site-content.js?v=20260618-2"></script>
+    <script src="./site-content.js?v=20260712-1"></script>
     <script>
       const content = window.BUYER_GUIDE;
 
@@ -440,16 +435,6 @@
         });
       }
 
-      function renderTips(items) {
-        const host = document.getElementById("tips");
-        host.innerHTML = "";
-        items.forEach((item) => {
-          const tip = createElement("div", "tip");
-          tip.innerHTML = `<strong>${item.title}</strong><span>${item.text}</span>`;
-          host.appendChild(tip);
-        });
-      }
-
       document.documentElement.lang = content.lang || "ru";
       document.title = content.pageTitle;
       document.getElementById("author-badge").textContent = content.author
@@ -461,11 +446,9 @@
       document.getElementById("primary-link").textContent = content.primaryAction.label;
       document.getElementById("primary-link").href = content.primaryAction.href;
       document.getElementById("secondary-link").textContent = content.secondaryActionLabel;
-      document.getElementById("footer-note").textContent = content.footerNote;
 
       renderMeta(content.meta);
       renderSections(content.sections);
-      renderTips(content.tips);
     </script>
   </body>
 </html>

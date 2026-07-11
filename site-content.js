@@ -14,7 +14,7 @@
   meta: [
     { label: "Подходит для", value: "Codex / Opencode" },
     { label: "Система", value: "Windows / macOS" },
-    { label: "Бонус", value: "🔴 +1 млн токенов за отзыв" },
+    { label: "Бонус", value: "🎁 +1 млн токенов за отзыв" },
     { label: "Настройка", value: "5-10 минут" },
   ],
   sections: [
@@ -35,7 +35,7 @@
         "<p><strong>2.</strong> Перейдите в папку <code>.codex</code>. На Windows нажмите <code>Win + R</code>, вставьте <code>%userprofile%\\.codex</code> и нажмите Enter. Если папка не открылась, сначала запустите Codex один раз, чтобы он создал папку автоматически.</p>" +
         "<p><strong>3.</strong> Найдите файл <code>config.toml</code> и откройте его в Блокноте. Если файла нет, создайте текстовый документ и переименуйте его в <code>config.toml</code>. Если Windows спросит про изменение расширения файла, подтвердите действие.</p>" +
         "<p>Удалите все содержимое файла <code>config.toml</code>, после чего вставьте туда эту конфигурацию:</p>" +
-        "<pre><code>model_provider = \"OpenAI\"\nmodel = \"gpt-5.5\"\nreview_model = \"gpt-5.5\"\nmodel_reasoning_effort = \"medium\"\ndisable_response_storage = true\nnetwork_access = \"enabled\"\nwindows_wsl_setup_acknowledged = true\nplan_mode_reasoning_effort = \"xhigh\"\n\n[model_providers.OpenAI]\nname = \"OpenAI\"\nbase_url = \"https://byesu.com/v1\"\nwire_api = \"responses\"\nrequires_openai_auth = true\n\n[features]\ngoals = true</code></pre>" +
+        "<pre><code>model = \"gpt-5.6-terra\"\nreview_model = \"gpt-5.6-terra\"\nmodel_reasoning_effort = \"xhigh\"\ndisable_response_storage = true\nnetwork_access = \"enabled\"\nwindows_wsl_setup_acknowledged = true\nplan_mode_reasoning_effort = \"xhigh\"\nmodel_provider = \"OpenAI\"\n\n[model_providers.OpenAI]\nname = \"OpenAI\"\nbase_url = \"https://byesu.com/v1\"\nwire_api = \"responses\"\nrequires_openai_auth = false</code></pre>" +
         "<p>Сохраните данную конфигурацию через <code>Ctrl + S</code> и закройте Блокнот.</p>" +
         "<p><strong>4.</strong> В этой же папке <code>.codex</code> откройте файл <code>auth.json</code>. Если файла нет, создайте текстовый документ и переименуйте его в <code>auth.json</code>. Если Windows спросит про изменение расширения файла, подтвердите действие.</p>" +
         "<p>Удалите все содержимое файла <code>auth.json</code> и вставьте туда этот текст:</p>" +
@@ -74,20 +74,4 @@
         "</ul>",
     },
   ],
-  tips: [
-    {
-      title: "Ссылка для покупателей",
-      text: "После публикации на GitHub Pages ты просто отдаешь покупателям одну ссылку на эту инструкцию.",
-    },
-    {
-      title: "Где редактировать сайт",
-      text: "Главный текст сайта лежит в файле <code>site-content.js</code>.",
-    },
-    {
-      title: "Что можно добавить",
-      text: "Можно позже вставить дополнительные примеры или полезные примечания.",
-    },
-  ],
-  footerNote:
-    "Инструкция подготовлена для быстрого подключения API key. При необходимости текст можно дополнять и обновлять.",
 };
