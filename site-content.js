@@ -1,6 +1,8 @@
 ﻿window.BUYER_GUIDE = {
   lang: "ru",
   author: "ray127polite1",
+  authorLabel: "Автор",
+  quickLinksTitle: "Быстрые переходы",
   pageTitle: "Инструкция по использованию API key",
   eyebrow: "Windows / macOS · API инструкция",
   title: "Инструкция по использованию API key",
@@ -75,3 +77,94 @@
     },
   ],
 };
+
+(() => {
+  const findSection = (id) =>
+    window.BUYER_GUIDE.sections.find((section) => section.id === id);
+  const getCodeBlocks = (id) =>
+    findSection(id).html.match(/<pre><code>[\s\S]*?<\/code><\/pre>/g) || [];
+  const [codexConfig, authConfigRu] = getCodeBlocks("codex");
+  const [opencodeConfigRu] = getCodeBlocks("opencode");
+  const authConfig = authConfigRu.replace("ваш_aпи_ключ", "your_api_key");
+  const opencodeConfig = opencodeConfigRu.replaceAll("ваш_апи_ключ", "your_api_key");
+
+  window.BUYER_GUIDE_EN = {
+    lang: "en",
+    author: "ray127polite1",
+    authorLabel: "Author",
+    quickLinksTitle: "Quick navigation",
+    pageTitle: "API key usage guide",
+    eyebrow: "Windows / macOS · API guide",
+    title: "API key usage guide",
+    subtitle:
+      "A step-by-step guide to connecting an API key in Codex (ChatGPT) and Opencode on Windows and macOS. Codex (ChatGPT) is the recommended option. Simply follow the steps in order.",
+    primaryAction: {
+      label: "Start setup",
+      href: "#codex",
+    },
+    secondaryActionLabel: "View steps",
+    meta: [
+      { label: "Works with", value: "Codex (ChatGPT) / Opencode" },
+      { label: "System", value: "Windows / macOS" },
+      { label: "Bonus", value: "🎁 +1M tokens for a review" },
+      { label: "Setup time", value: "5-10 minutes" },
+    ],
+    sections: [
+      {
+        id: "intro",
+        title: "What you need",
+        note: "A quick check before setup.",
+        html:
+          "<p>To get started, you need the OpenAI API key provided to you.</p>" +
+          "<p style=\"color:#dc2626;font-weight:700;\">Dear customer, please confirm receipt of your purchase. If your purchase includes 5 million tokens or more, I will add another 1 million tokens to your key for leaving a review.</p>",
+      },
+      {
+        id: "codex",
+        title: "Codex (ChatGPT) - recommended option",
+        note: "The recommended way to configure your API key.",
+        html:
+          "<p><strong>1.</strong> Open Codex (ChatGPT) and sign in with your API key. The key looks approximately like this: <code>sk-........</code>. During sign-in, paste the complete key without quotation marks.</p>" +
+          "<p><strong>2.</strong> Open the <code>.codex</code> folder. On Windows, press <code>Win + R</code>, paste <code>%userprofile%\\.codex</code>, and press Enter. If the folder does not open, launch Codex once first so it can create the folder automatically.</p>" +
+          "<p><strong>3.</strong> Find <code>config.toml</code> and open it in Notepad. If the file does not exist, create a text document and rename it to <code>config.toml</code>. If Windows asks you to confirm the file extension change, approve it.</p>" +
+          "<p>Delete everything inside <code>config.toml</code>, then paste this configuration:</p>" +
+          codexConfig +
+          "<p>Press <code>Ctrl + S</code> to save the configuration, then close Notepad.</p>" +
+          "<p><strong>4.</strong> In the same <code>.codex</code> folder, open <code>auth.json</code>. If the file does not exist, create a text document and rename it to <code>auth.json</code>. If Windows asks you to confirm the file extension change, approve it.</p>" +
+          "<p>Delete everything inside <code>auth.json</code>, then paste this text:</p>" +
+          authConfig +
+          "<p>Replace <code>your_api_key</code> with your API key. Keep the quotation marks around the key because this file uses JSON format. Press <code>Ctrl + S</code> to save the file, then close Notepad.</p>" +
+          "<p><strong>5.</strong> Fully close Codex (ChatGPT) and open it again. After restarting, you can use the application with your connected API key.</p>",
+      },
+      {
+        id: "opencode",
+        title: "Opencode",
+        note: "API key setup for Opencode.",
+        html:
+          "<p>Configuration path: <code>~/.config/opencode/opencode.json</code> or <code>opencode.jsonc</code>. If the file does not exist, create it manually.</p>" +
+          "<p>You can configure the API key directly or by using the <code>/connect</code> command. A ready-to-use configuration example is shown below. You can change the models and parameters if needed.</p>" +
+          opencodeConfig,
+      },
+      {
+        id: "finish",
+        title: "After setup",
+        note: "What to do next.",
+        html:
+          "<p>After saving the configuration, restart the application and make sure the key was entered correctly.</p>" +
+          "<p>If everything is configured correctly, the service will start working with your API key.</p>",
+      },
+      {
+        id: "tips",
+        title: "If something does not work",
+        note: "The most common causes of errors.",
+        html:
+          "<ul>" +
+          "<li>Make sure the complete key was pasted.</li>" +
+          "<li>Make sure the file was saved with the correct name: <code>config.toml</code> or <code>auth.json</code>.</li>" +
+          "<li>Make sure you opened the correct folder.</li>" +
+          "<li>Check that the configuration contains no extra characters or accidental spaces.</li>" +
+          "<li>Restart the application after changing the files.</li>" +
+          "</ul>",
+      },
+    ],
+  };
+})();
