@@ -1,18 +1,18 @@
 ﻿window.BUYER_GUIDE = {
   lang: "ru",
   author: "ray127polite1",
-  pageTitle: "Инструкция по использованию API key GPT Plus",
+  pageTitle: "Инструкция по использованию API key",
   eyebrow: "Windows / macOS · API инструкция",
-  title: "Инструкция по использованию API key GPT Plus",
+  title: "Инструкция по использованию API key",
   subtitle:
-    "Пошаговая инструкция для подключения API key в Codex и Opencode на Windows и macOS. Codex - рекомендуемый вариант. Просто повторяйте шаги по порядку.",
+    "Пошаговая инструкция для подключения API key в Codex (ChatGPT) и Opencode на Windows и macOS. Codex (ChatGPT) - рекомендуемый вариант. Просто повторяйте шаги по порядку.",
   primaryAction: {
     label: "Начать настройку",
     href: "#codex",
   },
   secondaryActionLabel: "Открыть шаги",
   meta: [
-    { label: "Подходит для", value: "Codex / Opencode" },
+    { label: "Подходит для", value: "Codex (ChatGPT) / Opencode" },
     { label: "Система", value: "Windows / macOS" },
     { label: "Бонус", value: "🎁 +1 млн токенов за отзыв" },
     { label: "Настройка", value: "5-10 минут" },
@@ -28,10 +28,10 @@
     },
     {
       id: "codex",
-      title: "Codex - рекомендуемый вариант",
+      title: "Codex (ChatGPT) - рекомендуемый вариант",
       note: "Рекомендуемый способ настройки API key.",
       html:
-        "<p><strong>1.</strong> Откройте Codex и авторизируйтесь с помощью API key. Ключ выглядит примерно так: <code>sk-........</code>. При авторизации вставляйте ключ полностью и без кавычек.</p>" +
+        "<p><strong>1.</strong> Откройте Codex (ChatGPT) и авторизируйтесь с помощью API key. Ключ выглядит примерно так: <code>sk-........</code>. При авторизации вставляйте ключ полностью и без кавычек.</p>" +
         "<p><strong>2.</strong> Перейдите в папку <code>.codex</code>. На Windows нажмите <code>Win + R</code>, вставьте <code>%userprofile%\\.codex</code> и нажмите Enter. Если папка не открылась, сначала запустите Codex один раз, чтобы он создал папку автоматически.</p>" +
         "<p><strong>3.</strong> Найдите файл <code>config.toml</code> и откройте его в Блокноте. Если файла нет, создайте текстовый документ и переименуйте его в <code>config.toml</code>. Если Windows спросит про изменение расширения файла, подтвердите действие.</p>" +
         "<p>Удалите все содержимое файла <code>config.toml</code>, после чего вставьте туда эту конфигурацию:</p>" +
@@ -41,7 +41,7 @@
         "<p>Удалите все содержимое файла <code>auth.json</code> и вставьте туда этот текст:</p>" +
         "<pre><code>{\n  \"OPENAI_API_KEY\": \"ваш_aпи_ключ\",\n  \"auth_mode\": \"apikey\"\n}</code></pre>" +
         "<p>Замените <code>ваш_aпи_ключ</code> на свой API key. В этом файле кавычки вокруг ключа оставьте, потому что это JSON. После этого сохраните файл через <code>Ctrl + S</code> и закройте Блокнот.</p>" +
-        "<p><strong>5.</strong> Полностью закройте Codex и откройте его заново. После перезапуска можно пользоваться Codex с подключенным API key.</p>",
+        "<p><strong>5.</strong> Полностью закройте Codex (ChatGPT) и откройте его заново. После перезапуска можно пользоваться программой с подключенным API key.</p>",
     },
     {
       id: "opencode",
