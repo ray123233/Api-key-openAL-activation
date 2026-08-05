@@ -621,7 +621,7 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
       .filter((item) => item.id !== "models" && item.id !== "codex")
       .map((item) => {
         if (item.id === "clients") return { id: "connections", label: lang === "ru" ? "Подключение API" : "API connection" };
-        if (item.id === "help") return { id: "help", label: lang === "ru" ? "Застряли" : "Stuck" };
+        if (item.id === "help") return { id: "help", label: lang === "ru" ? "Застряли?" : "Stuck?" };
         return item;
       });
 
