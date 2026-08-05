@@ -273,6 +273,63 @@
         color: var(--warm);
       }
 
+      .guide-menu {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-top: 18px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(16, 20, 24, 0.92);
+        box-shadow: var(--shadow);
+        overflow-x: auto;
+      }
+
+      .guide-menu-label {
+        flex: 0 0 auto;
+        padding-left: 6px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .guide-menu-list {
+        display: flex;
+        min-width: max-content;
+        gap: 5px;
+      }
+
+      .guide-menu-button {
+        min-height: 38px;
+        padding: 0 15px;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        color: var(--muted);
+        background: transparent;
+        font: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .guide-menu-button:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.055);
+      }
+
+      .guide-menu-button.is-active {
+        border-color: var(--line-strong);
+        color: #07110f;
+        background: var(--accent);
+      }
+
+      .guide-menu-button:focus-visible {
+        outline: 2px solid var(--warm);
+        outline-offset: 2px;
+      }
+
       .layout {
         display: grid;
         grid-template-columns: minmax(0, 1fr) 300px;
@@ -380,6 +437,211 @@
         white-space: pre;
       }
 
+      .connection-grid,
+      .model-grid,
+      .error-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin: 18px 0;
+      }
+
+      .connection-grid > div,
+      .model-card,
+      .error-grid details,
+      .catalog-card {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.025);
+      }
+
+      .connection-grid > div {
+        display: grid;
+        align-content: start;
+        gap: 9px;
+        padding: 16px;
+      }
+
+      .connection-grid code {
+        width: fit-content;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+      }
+
+      .connection-grid small {
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .catalog-group + .catalog-group {
+        margin-top: 28px;
+      }
+
+      .catalog-group h3 {
+        margin: 0 0 12px;
+        color: var(--text);
+        font-size: 19px;
+      }
+
+      .catalog-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .catalog-card summary,
+      .error-grid summary {
+        list-style: none;
+        cursor: pointer;
+      }
+
+      .catalog-card summary::-webkit-details-marker,
+      .error-grid summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .catalog-card summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        min-height: 70px;
+        padding: 14px 16px;
+      }
+
+      .catalog-card summary strong,
+      .catalog-card summary small {
+        display: block;
+      }
+
+      .catalog-card summary strong {
+        color: var(--text);
+      }
+
+      .catalog-card summary small {
+        margin-top: 4px;
+        color: var(--muted);
+      }
+
+      .catalog-arrow {
+        flex: 0 0 auto;
+        color: var(--accent);
+        font-size: 22px;
+        line-height: 1;
+      }
+
+      .catalog-card[open] {
+        border-color: var(--line-strong);
+        background: rgba(83, 214, 197, 0.035);
+      }
+
+      .catalog-card[open] .catalog-arrow {
+        transform: rotate(45deg);
+      }
+
+      .catalog-card-body {
+        padding: 0 16px 16px;
+        border-top: 1px solid var(--line);
+      }
+
+      .connection-facts {
+        display: grid;
+        gap: 8px;
+        margin: 14px 0;
+      }
+
+      .connection-facts span {
+        display: grid;
+        grid-template-columns: 82px minmax(0, 1fr);
+        align-items: start;
+        gap: 8px;
+      }
+
+      .connection-facts b {
+        color: var(--text);
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      .model-card {
+        padding: 16px;
+      }
+
+      .model-card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .model-card-top code {
+        overflow-wrap: anywhere;
+      }
+
+      .model-card-top span {
+        color: var(--warm);
+        font-size: 12px;
+        font-weight: 700;
+        text-align: right;
+      }
+
+      .model-card p {
+        margin-top: 12px;
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .docs-link {
+        display: inline-flex;
+        margin-top: 4px;
+        color: var(--accent);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .docs-link:hover {
+        text-decoration: underline;
+      }
+
+      .error-grid details {
+        padding: 15px 16px;
+      }
+
+      .error-grid details[open] {
+        border-color: rgba(255, 140, 140, 0.3);
+        background: rgba(255, 140, 140, 0.045);
+      }
+
+      .error-grid summary {
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      .error-grid summary::after {
+        content: "+";
+        float: right;
+        margin-left: 12px;
+        color: var(--danger);
+        font-size: 20px;
+        line-height: 1;
+      }
+
+      .error-grid details[open] summary::after {
+        content: "−";
+      }
+
+      .error-grid p {
+        margin: 12px 0 0;
+      }
+
+      .source-note {
+        padding: 12px 14px;
+        border-left: 3px solid var(--warm);
+        color: var(--muted);
+        background: rgba(241, 189, 99, 0.055);
+      }
+
       .side-title {
         margin: 0 0 12px;
         font-size: 12px;
@@ -442,6 +704,16 @@
         .meta-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+
+        .guide-menu {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 7px;
+        }
+
+        .guide-menu-list {
+          width: 100%;
+        }
       }
 
       @media (max-width: 640px) {
@@ -496,6 +768,28 @@
         .section-body pre {
           padding: 16px;
         }
+
+        .guide-menu {
+          margin-top: 10px;
+          padding: 8px;
+        }
+
+        .guide-menu-label {
+          display: none;
+        }
+
+        .guide-menu-button {
+          min-height: 36px;
+          padding: 0 12px;
+          font-size: 13px;
+        }
+
+        .connection-grid,
+        .model-grid,
+        .error-grid,
+        .catalog-grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
@@ -519,6 +813,11 @@
         <div class="meta-grid" id="meta-grid"></div>
       </section>
 
+      <nav class="guide-menu" aria-label="Guide sections">
+        <span class="guide-menu-label" id="guide-menu-label"></span>
+        <div class="guide-menu-list" id="guide-menu"></div>
+      </nav>
+
       <section class="layout">
         <article class="panel panel-main">
           <div id="instructions"></div>
@@ -531,13 +830,14 @@
       </section>
     </main>
 
-    <script src="./site-content.js?v=20260712-3"></script>
+    <script src="./site-content.js?v=20260806-1"></script>
     <script>
       const guides = {
         ru: window.BUYER_GUIDE,
         en: window.BUYER_GUIDE_EN,
       };
       let content = guides.ru;
+      let activeView = "start";
 
       function createElement(tag, className, text) {
         const node = document.createElement(tag);
@@ -557,13 +857,30 @@
         });
       }
 
+      function renderMenu() {
+        const host = document.getElementById("guide-menu");
+        host.innerHTML = "";
+
+        content.navigation.forEach((item) => {
+          const button = createElement("button", "guide-menu-button", item.label);
+          button.type = "button";
+          button.dataset.view = item.id;
+          const isActive = item.id === activeView;
+          button.classList.toggle("is-active", isActive);
+          button.setAttribute("aria-pressed", String(isActive));
+          host.appendChild(button);
+        });
+      }
+
       function renderSections(sections) {
         const host = document.getElementById("instructions");
         const quickLinks = document.getElementById("quick-links");
         host.innerHTML = "";
         quickLinks.innerHTML = "";
 
-        sections.forEach((section) => {
+        sections
+          .filter((section) => (section.view || "start") === activeView)
+          .forEach((section) => {
           const block = createElement("section", "section-block");
           block.id = section.id;
           block.appendChild(createElement("h2", "", section.title));
@@ -577,6 +894,18 @@
           link.href = `#${section.id}`;
           link.innerHTML = `<strong>${section.title}</strong><span>${section.note}</span>`;
           quickLinks.appendChild(link);
+          });
+      }
+
+      function selectView(view, targetId) {
+        if (!content.navigation.some((item) => item.id === view)) return;
+        activeView = view;
+        renderMenu();
+        renderSections(content.sections);
+        const hash = targetId || (view === "start" ? "instructions" : view);
+        history.replaceState(null, "", `#${hash}`);
+        requestAnimationFrame(() => {
+          document.getElementById(targetId || "instructions")?.scrollIntoView({ behavior: "smooth", block: "start" });
         });
       }
 
@@ -608,6 +937,7 @@
         document.getElementById("primary-link").href = content.primaryAction.href;
         document.getElementById("secondary-link").textContent = content.secondaryActionLabel;
         document.getElementById("quick-links-title").textContent = content.quickLinksTitle;
+        document.getElementById("guide-menu-label").textContent = content.menuLabel;
 
         document.querySelectorAll("[data-language]").forEach((button) => {
           const isActive = button.dataset.language === content.lang;
@@ -616,9 +946,28 @@
         });
 
         renderMeta(content.meta);
+        renderMenu();
         renderSections(content.sections);
         saveLanguage(content.lang);
       }
+
+      document.getElementById("guide-menu").addEventListener("click", (event) => {
+        const button = event.target.closest("[data-view]");
+        if (button) selectView(button.dataset.view);
+      });
+
+      document.getElementById("primary-link").addEventListener("click", (event) => {
+        const targetId = content.primaryAction.href.replace(/^#/, "");
+        const section = content.sections.find((item) => item.id === targetId);
+        if (!section) return;
+        event.preventDefault();
+        selectView(section.view || "start", targetId);
+      });
+
+      document.getElementById("secondary-link").addEventListener("click", (event) => {
+        event.preventDefault();
+        selectView("start", "instructions");
+      });
 
       document.querySelectorAll("[data-language]").forEach((button) => {
         button.addEventListener("click", () => renderContent(button.dataset.language));
