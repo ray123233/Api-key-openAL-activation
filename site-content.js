@@ -641,9 +641,7 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
       lang === "ru"
         ? "Полные инструкции для приложений и способов подключения API."
         : "Complete API setup guides for supported applications.";
-    const codexHtml = originalCodex
-      ? originalCodex.html + (codexErrors ? codexErrors.html : "")
-      : "";
+    const codexHtml = originalCodex ? originalCodex.html : "";
     const codexGuide = {
       group: "code",
       name: "Codex (ChatGPT)",
