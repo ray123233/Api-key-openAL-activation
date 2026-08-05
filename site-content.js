@@ -582,6 +582,11 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
     return `<aside class="stuck-box"><div class="stuck-title"><span class="stuck-icon">?</span>${ru ? "Застряли?" : "Stuck?"}</div><div class="stuck-item"><strong>${ru ? "Ошибка 401 / сбой аутентификации" : "401 error / authentication failure"}</strong><p>${ru ? "Токен введён неправильно или содержит лишние пробелы. Убедитесь, что ключ имеет вид" : "The token is incorrect or contains extra spaces. Make sure the key looks like"} <code>sk-xxxx</code>.</p></div><div class="stuck-item"><strong>${ru ? "Connection error / обрыв потока" : "Connection error / disconnected stream"}</strong><p>${retryTip}</p></div><div class="stuck-item"><strong>${ru ? "Неверный адрес или интерфейс" : "Wrong endpoint or interface"}</strong><p>${endpointTip}</p></div><div class="stuck-item"><strong>${ru ? "Команда не запускается" : "The command does not start"}</strong><p>${systemTip}</p></div></aside>`;
   }
 
+  function renderTroubleshootingGuides(lang, extraGuides = []) {
+    const allGuides = [...extraGuides, ...appGuides];
+    return `<div class="error-grid stuck-guide-grid">${allGuides.map((app) => `<details><summary>${app.name}</summary>${troubleshootingDetails(app, lang)}</details>`).join("")}</div>`;
+  }
+
   function renderConnectionGuides(lang, extraGuides = []) {
     const apiLabel = lang === "ru" ? "Формат" : "Format";
     const modelLabel = lang === "ru" ? "Модель" : "Model";
@@ -599,7 +604,7 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
                   <span><b>Base URL</b><code>${app.baseUrl}</code></span>
                   <span><b>${modelLabel}</b><code>${app.model}</code></span>
                 </div>
-                <div class="full-guide-content">${platformDetails(app, lang)}${app[lang]}${troubleshootingDetails(app, lang)}</div>
+                <div class="full-guide-content">${platformDetails(app, lang)}${app[lang]}</div>
               </div>
             </details>`,
           )
@@ -614,11 +619,11 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
     const codexErrors = guide.sections.find((section) => section.id === "codex-errors");
     guide.navigation = guide.navigation
       .filter((item) => item.id !== "models" && item.id !== "codex")
-      .map((item) =>
-        item.id === "clients"
-          ? { id: "connections", label: lang === "ru" ? "Подключение API" : "API connection" }
-          : item,
-      );
+      .map((item) => {
+        if (item.id === "clients") return { id: "connections", label: lang === "ru" ? "Подключение API" : "API connection" };
+        if (item.id === "help") return { id: "help", label: lang === "ru" ? "Застряли" : "Stuck" };
+        return item;
+      });
 
     guide.sections = guide.sections.filter(
       (section) =>
@@ -651,6 +656,12 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
       en: lang === "en" ? codexHtml : "",
       docs: "https://docs.byesu.com/ru/clients/codex-cli",
     };
+    const helpSection = guide.sections.find((section) => section.id === "tips");
+    if (helpSection) {
+      helpSection.title = lang === "ru" ? "Застряли?" : "Stuck?";
+      helpSection.note = lang === "ru" ? "Частые ошибки и решения для всех подключений." : "Common errors and fixes for every connection.";
+      helpSection.html += renderTroubleshootingGuides(lang, [codexGuide]);
+    }
     catalog.html =
       (lang === "ru"
         ? "<p>Выберите приложение и раскройте карточку. Внутри находятся адрес API, команды, пути к файлам и пошаговая настройка. Инструкция Codex находится здесь же.</p>"
