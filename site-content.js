@@ -584,7 +584,9 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
 
   function renderTroubleshootingGuides(lang) {
     const openCode = appGuides.find((app) => app.name === "OpenCode") || appGuides[0];
-    return troubleshootingDetails(openCode, lang);
+    return troubleshootingDetails(openCode, lang)
+      .replace(/^<aside class="stuck-box">/, "")
+      .replace(/<\/aside>$/, "");
   }
 
   function renderConnectionGuides(lang, extraGuides = []) {
@@ -656,9 +658,9 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
     };
     const helpSection = guide.sections.find((section) => section.id === "tips");
     if (helpSection) {
-      helpSection.title = lang === "ru" ? "Застряли?" : "Stuck?";
+      helpSection.title = lang === "ru" ? "Частые ошибки" : "Common errors";
       helpSection.note = lang === "ru" ? "Частые ошибки и решения для всех подключений." : "Common errors and fixes for every connection.";
-      helpSection.html += renderTroubleshootingGuides(lang);
+      helpSection.html = `<div class="stuck-box help-frame">${helpSection.html}${renderTroubleshootingGuides(lang)}</div>`;
     }
     catalog.html =
       (lang === "ru"
