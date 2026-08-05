@@ -169,6 +169,338 @@
   };
 })();
 
+(function () {
+  const groups = {
+    ru: {
+      code: "Клиенты для кода",
+      desktop: "Десктоп-клиенты",
+      bots: "Чат-боты",
+      translation: "Перевод",
+    },
+    en: {
+      code: "Coding clients",
+      desktop: "Desktop clients",
+      bots: "Chat bots",
+      translation: "Translation",
+    },
+  };
+
+  const appGuides = [
+    {
+      group: "code",
+      name: "CC Switch",
+      levelRu: "Средняя сложность · управление AI CLI",
+      levelEn: "Intermediate · AI CLI manager",
+      format: "Claude / Anthropic",
+      baseUrl: "https://byesu.com",
+      model: "claude-opus-4-8",
+      ru: `<p>CC Switch переключает Claude Code и другие AI CLI между поставщиками без ручного изменения конфигурации.</p>
+        <h4>1. Установите CC Switch</h4><p>Скачайте установщик для Windows или Linux со страницы проекта. На macOS можно выполнить:</p><pre><code>brew tap farion1231/ccswitch
+brew install --cask cc-switch</code></pre>
+        <h4>2. Добавьте Byesu</h4><p>Откройте категорию <strong>Claude</strong>. Самый быстрый способ: в консоли Byesu откройте импорт CC Switch, выберите Claude и основную модель <code>claude-opus-4-8</code>.</p><p>При ручном добавлении укажите:</p><ul><li>Base URL: <code>https://byesu.com</code> без <code>/v1</code>.</li><li>API Key / Auth Token: ваш ключ <code>sk-...</code>.</li><li>Opus: <code>claude-opus-4-8</code>. Для Sonnet и Haiku можно выбрать ту же или другую доступную модель.</li></ul>
+        <h4>3. Активируйте и проверьте</h4><p>Сохраните поставщика и нажмите на запись Byesu. CC Switch запишет <code>ANTHROPIC_BASE_URL</code> и <code>ANTHROPIC_AUTH_TOKEN</code>. Откройте новый терминал и выполните:</p><pre><code>claude</code></pre><p>При ошибке 401 заново вставьте ключ без пробелов. Если терминал был открыт раньше, перезапустите его.</p>`,
+      en: `<p>CC Switch manages AI CLI providers without manual configuration changes.</p><h4>1. Install</h4><p>Use the Windows/Linux release, or run on macOS:</p><pre><code>brew tap farion1231/ccswitch
+brew install --cask cc-switch</code></pre><h4>2. Add Byesu</h4><p>Select the Claude category. Import from the Byesu console or add a provider manually with Base URL <code>https://byesu.com</code>, your <code>sk-...</code> token, and model <code>claude-opus-4-8</code>.</p><h4>3. Test</h4><p>Activate the provider, open a new terminal, and run <code>claude</code>.</p>`,
+      docs: "https://docs.byesu.com/ru/clients/cc-switch",
+    },
+    {
+      group: "code",
+      name: "Claude Code CLI",
+      levelRu: "Продвинутая · командная строка",
+      levelEn: "Advanced · command line",
+      format: "Claude / Anthropic",
+      baseUrl: "https://byesu.com",
+      model: "claude-opus-4-8",
+      ru: `<h4>1. Установите Claude Code</h4><p>Нужен Node.js 18+. На Windows также установите Git for Windows.</p><pre><code>npm install -g @anthropic-ai/claude-code
+claude --version</code></pre><p>На macOS/Linux можно использовать официальный установщик:</p><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+        <h4>2. Подключите Byesu</h4><p>Быстрая настройка для Windows PowerShell:</p><pre><code>iex (irm 'https://docs.byesu.com/setup/claude.ps1')</code></pre><p>Или задайте переменные вручную:</p><pre><code>export ANTHROPIC_BASE_URL="https://byesu.com"
+export ANTHROPIC_API_KEY="sk-ваш-токен"
+export ANTHROPIC_MODEL="claude-opus-4-8"</code></pre><p>На Windows добавьте эти переменные через параметры системы. Если авторизация не проходит, используйте <code>ANTHROPIC_AUTH_TOKEN</code> вместо <code>ANTHROPIC_API_KEY</code>.</p>
+        <h4>3. Запустите</h4><pre><code>claude</code></pre><p>Модель можно сменить командой <code>/model</code>. Ошибка «no available channel» означает, что группа токена не поддерживает выбранную модель.</p>`,
+      en: `<h4>1. Install</h4><p>Install Node.js 18+ and Git for Windows when applicable, then run:</p><pre><code>npm install -g @anthropic-ai/claude-code
+claude --version</code></pre><h4>2. Configure</h4><pre><code>export ANTHROPIC_BASE_URL="https://byesu.com"
+export ANTHROPIC_API_KEY="sk-your-token"
+export ANTHROPIC_MODEL="claude-opus-4-8"</code></pre><p>Use <code>ANTHROPIC_AUTH_TOKEN</code> if your version rejects <code>ANTHROPIC_API_KEY</code>.</p><h4>3. Run</h4><pre><code>claude</code></pre>`,
+      docs: "https://docs.byesu.com/ru/clients/claude-cli",
+    },
+    {
+      group: "code",
+      name: "OpenCode",
+      levelRu: "Средняя · JSON-конфигурация",
+      levelEn: "Intermediate · JSON configuration",
+      format: "OpenAI-compatible",
+      baseUrl: "https://byesu.com/v1",
+      model: "claude-opus-4-8",
+      ru: `<h4>1. Установите OpenCode</h4><pre><code>curl -fsSL https://opencode.ai/install | bash
+opencode --version</code></pre><p>Также доступна установка через npm или Homebrew.</p>
+        <h4>2. Создайте конфигурацию</h4><p>Используйте глобальный файл <code>~/.config/opencode/opencode.json</code> или <code>opencode.json</code> в корне проекта:</p><pre><code>{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "byesu/claude-opus-4-8",
+  "small_model": "byesu/claude-sonnet-5",
+  "provider": {
+    "byesu": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "byesu",
+      "options": {
+        "baseURL": "https://byesu.com/v1",
+        "apiKey": "sk-ваш-токен"
+      },
+      "models": {
+        "claude-opus-4-8": { "name": "Claude Opus 4.8" },
+        "claude-sonnet-5": { "name": "Claude Sonnet 5" },
+        "gpt-5.6-terra": { "name": "GPT-5.6 Terra" },
+        "grok-4.5": { "name": "Grok 4.5" }
+      }
+    }
+  }
+}</code></pre><p>Обязательно используйте пакет <code>@ai-sdk/openai-compatible</code>. Имена моделей пишутся точно как в консоли, а при выборе добавляется префикс <code>byesu/</code>.</p>
+        <h4>3. Безопасное хранение ключа</h4><p>Вместо открытого ключа можно указать <code>"apiKey": "{env:BYESU_API_KEY}"</code> и создать переменную:</p><pre><code>export BYESU_API_KEY="sk-ваш-токен"</code></pre><p>Другой вариант: команда <code>/connect</code>, пункт Other, идентификатор поставщика <code>byesu</code>.</p>
+        <h4>4. Запустите</h4><pre><code>opencode</code></pre><p>При «no available channel» проверьте группу токена и точное имя модели.</p>`,
+      en: `<h4>1. Install</h4><pre><code>curl -fsSL https://opencode.ai/install | bash
+opencode --version</code></pre><h4>2. Configure</h4><p>Create <code>~/.config/opencode/opencode.json</code> with a provider using <code>@ai-sdk/openai-compatible</code>, Base URL <code>https://byesu.com/v1</code>, and your token. Model references must use the <code>byesu/</code> prefix.</p><pre><code>"options": {
+  "baseURL": "https://byesu.com/v1",
+  "apiKey": "{env:BYESU_API_KEY}"
+}</code></pre><h4>3. Run</h4><pre><code>opencode</code></pre>`,
+      docs: "https://docs.byesu.com/ru/clients/opencode",
+    },
+    {
+      group: "code",
+      name: "Roo Code",
+      levelRu: "Средняя · расширение VS Code",
+      levelEn: "Intermediate · VS Code extension",
+      format: "OpenAI-compatible",
+      baseUrl: "https://byesu.com/v1",
+      model: "claude-opus-4-8",
+      ru: `<h4>1. Установите расширение</h4><p>В VS Code нажмите <code>Ctrl/⌘ + Shift + X</code>, найдите Roo Code и установите его.</p><h4>2. Заполните настройки</h4><p>Откройте Roo Code, нажмите шестерёнку и выберите <strong>OpenAI Compatible</strong>.</p><ul><li>Base URL: <code>https://byesu.com/v1</code></li><li>API Key: ваш <code>sk-...</code></li><li>Model: например <code>claude-opus-4-8</code> или <code>gpt-5.5</code></li></ul><h4>3. Проверьте</h4><p>Вернитесь в чат и отправьте запрос. При 404 проверьте наличие <code>/v1</code>; имя модели должно точно совпадать с консолью.</p>`,
+      en: `<h4>1. Install</h4><p>Install Roo Code from the VS Code extensions view.</p><h4>2. Configure</h4><p>Select OpenAI Compatible and enter Base URL <code>https://byesu.com/v1</code>, your token, and an exact model name.</p><h4>3. Test</h4><p>Send a message in the Roo Code chat.</p>`,
+      docs: "https://docs.byesu.com/ru/clients/roo-code",
+    },
+    {
+      group: "code",
+      name: "Factory Droid CLI",
+      levelRu: "Продвинутая · командная строка",
+      levelEn: "Advanced · command line",
+      format: "OpenAI-compatible",
+      baseUrl: "https://byesu.com/v1",
+      model: "claude-opus-4-8",
+      ru: `<h4>1. Установите Droid</h4><p>Windows PowerShell:</p><pre><code>irm https://app.factory.ai/cli/windows | iex</code></pre><h4>2. Настройте Byesu</h4><p>Быстрый скрипт:</p><pre><code>iex (irm 'https://raw.githubusercontent.com/QuantumNous/new-api-docs/refs/heads/main/helper/factory-cli-setup.ps1')</code></pre><p>Введите <code>https://byesu.com/v1</code> и свой ключ. Для ручной настройки откройте <code>%USERPROFILE%\.factory\config.json</code> на Windows или <code>~/.factory/config.json</code> на macOS/Linux и добавьте модель в <code>custom_models</code>:</p><pre><code>{
+  "model_display_name": "Claude Opus 4.8 [Byesu]",
+  "model": "claude-opus-4-8",
+  "base_url": "https://byesu.com/v1",
+  "api_key": "sk-ваш-токен",
+  "provider": "openai"
+}</code></pre><p>Для нативного Anthropic-протокола используйте <code>provider: "anthropic"</code> и адрес <code>https://byesu.com</code>, но обычно достаточно варианта OpenAI.</p><h4>3. Запустите</h4><pre><code>cd путь-к-проекту
+droid</code></pre>`,
+      en: `<h4>1. Install</h4><pre><code>irm https://app.factory.ai/cli/windows | iex</code></pre><h4>2. Configure</h4><p>Edit <code>~/.factory/config.json</code> and add a custom model with provider <code>openai</code>, Base URL <code>https://byesu.com/v1</code>, your token, and an exact model ID.</p><h4>3. Run</h4><pre><code>droid</code></pre>`,
+      docs: "https://docs.byesu.com/ru/clients/factory-droid-cli",
+    },
+    {
+      group: "desktop",
+      name: "Cherry Studio",
+      levelRu: "Простая · без кода",
+      levelEn: "Easy · no code",
+      format: "OpenAI-compatible",
+      baseUrl: "https://byesu.com",
+      model: "gpt-5.5",
+      ru: `<h4>1. Установите Cherry Studio</h4><p>Скачайте программу с <a href="https://cherry-ai.com" target="_blank" rel="noreferrer">cherry-ai.com</a> и запустите её.</p><h4>2. Добавьте поставщика</h4><p>Откройте «Сервисы моделей / Поставщики моделей», нажмите «Добавить» и выберите OpenAI.</p><ul><li>API Host: <code>https://byesu.com</code></li><li>API Key: ваш <code>sk-...</code></li></ul><p>Предпросмотр запроса должен получиться <code>https://byesu.com/v1/chat/completions</code>. Если видите <code>/v1/v1/</code>, уберите лишний <code>/v1</code> из API Host.</p><h4>3. Добавьте модели</h4><p>Введите точные названия из консоли, например <code>gpt-5.5</code>, <code>claude-opus-4-8</code> или <code>gpt-5.6-terra</code>, включите их и создайте новый чат.</p>`,
+      en: `<h4>1. Install</h4><p>Download Cherry Studio from <a href="https://cherry-ai.com" target="_blank" rel="noreferrer">cherry-ai.com</a>.</p><h4>2. Add provider</h4><p>Select OpenAI, enter API Host <code>https://byesu.com</code> and your token. The request preview must end in <code>/v1/chat/completions</code>.</p><h4>3. Add models</h4><p>Enter exact model IDs from the console and start a chat.</p>`,
+      docs: "https://docs.byesu.com/ru/clients/cherry-studio",
+    },
+    {
+      group: "desktop",
+      name: "DeepChat",
+      levelRu: "Средняя · графический клиент",
+      levelEn: "Intermediate · desktop GUI",
+      format: "OpenAI-compatible",
+      baseUrl: "https://byesu.com/v1",
+      model: "claude-opus-4-8",
+      ru: `<h4>1. Установите DeepChat</h4><p>Скачайте версию для Windows, macOS или Linux со страницы проекта.</p><h4>2. Добавьте поставщика</h4><p>Откройте «Настройки → Сервисы моделей» и выберите тип <strong>OpenAI / OpenAI Compatible</strong>.</p><ul><li>API Host: <code>https://byesu.com/v1</code></li><li>API Key: ваш <code>sk-...</code></li></ul><p>Не добавляйте <code>/chat/completions</code> вручную. При ошибке 404 попробуйте адрес <code>https://byesu.com</code>, если ваша версия DeepChat сама добавляет <code>/v1</code>.</p><h4>3. Добавьте модель</h4><p>Получите список моделей или добавьте точное имя вручную. Включите модель, выберите её на главном экране и отправьте тестовое сообщение.</p>`,
+      en: `<h4>1. Install</h4><p>Install DeepChat for your operating system.</p><h4>2. Add provider</h4><p>Select OpenAI Compatible, set <code>https://byesu.com/v1</code>, and enter your token. Do not append <code>/chat/completions</code>.</p><h4>3. Add a model</h4><p>Enter an exact model ID, enable it, and send a test message.</p>`,
+      docs: "https://docs.byesu.com/ru/clients/deepchat",
+    },
+    {
+      group: "desktop",
+      name: "AionUi",
+      levelRu: "Средняя · графический интерфейс",
+      levelEn: "Intermediate · graphical interface",
+      format: "OpenAI-compatible",
+      baseUrl: "https://byesu.com/v1",
+      model: "claude-opus-4-8",
+      ru: `<h4>1. Установите AionUi</h4><p>Скачайте актуальную версию на <a href="https://github.com/iOfficeAI/AionUi/releases" target="_blank" rel="noreferrer">странице релизов</a>.</p><h4>2. Добавьте модель Byesu</h4><p>В Settings выберите NewAPI, OpenAI Compatible или Custom.</p><ul><li>API Address: <code>https://byesu.com/v1</code></li><li>API Key: ваш <code>sk-...</code></li><li>Model: точное имя из консоли</li><li>Request Protocol: OpenAI-compatible</li></ul><p>Не добавляйте в конец <code>/chat/completions</code>.</p><h4>3. Claude Code внутри AionUi</h4><p>Этот агент использует нативный Anthropic-протокол: Base URL <code>https://byesu.com</code> без <code>/v1</code>, тот же ключ и модель <code>claude-opus-4-8</code>.</p><h4>4. Проверка</h4><p>Создайте новую сессию, выберите добавленную модель и отправьте запрос.</p>`,
+      en: `<h4>1. Install</h4><p>Download AionUi from its GitHub releases page.</p><h4>2. Add model</h4><p>Select NewAPI/OpenAI Compatible and enter <code>https://byesu.com/v1</code>, your token, and an exact model ID.</p><h4>3. Claude Code agent</h4><p>Use the Anthropic endpoint <code>https://byesu.com</code> without <code>/v1</code>.</p>`,
+      docs: "https://docs.byesu.com/ru/clients/aionui",
+    },
+    {
+      group: "desktop",
+      name: "Claude Desktop",
+      levelRu: "Прямое подключение не поддерживается",
+      levelEn: "Direct connection is unsupported",
+      format: "Claude",
+      baseUrl: "Не поддерживается",
+      model: "claude-opus-4-8",
+      ru: `<div class="guide-warning"><strong>Важно:</strong> официальное приложение Claude Desktop сейчас не позволяет заменить адрес API на сторонний. Поэтому прямое подключение Byesu может не работать.</div><p>Для работы с теми же моделями используйте Claude Code CLI, Cherry Studio, DeepChat или AionUi.</p>`,
+      en: `<div class="guide-warning"><strong>Important:</strong> the official Claude Desktop app currently does not support a custom API endpoint, so direct Byesu connection may not work.</div><p>Use Claude Code CLI, Cherry Studio, DeepChat, or AionUi instead.</p>`,
+      docs: "https://docs.byesu.com/ru/clients/claude-desktop",
+    },
+    {
+      group: "bots",
+      name: "AstrBot",
+      levelRu: "Продвинутая · панель управления",
+      levelEn: "Advanced · control panel",
+      format: "OpenAI-compatible",
+      baseUrl: "https://byesu.com/v1",
+      model: "gpt-5.5",
+      ru: `<h4>1. Установите AstrBot</h4><p>Разверните AstrBot по официальной инструкции и откройте панель управления, обычно по адресу <code>http://IP-сервера:6185</code>.</p><h4>2. Добавьте поставщика</h4><p>В разделе Provider создайте поставщика OpenAI-compatible:</p><ul><li>API Base URL: <code>https://byesu.com/v1</code></li><li>API Key: ваш <code>sk-...</code></li><li>Model: например <code>gpt-5.5</code> или <code>claude-opus-4-8</code></li></ul><h4>3. Назначьте модель</h4><p>Выберите поставщика Byesu как модель чата по умолчанию и отправьте тестовое сообщение через панель или подключённый мессенджер. При 404 проверьте <code>/v1</code>.</p>`,
+      en: `<h4>1. Install</h4><p>Deploy AstrBot and open its control panel.</p><h4>2. Add provider</h4><p>Create an OpenAI-compatible provider with <code>https://byesu.com/v1</code>, your token, and an exact model ID.</p><h4>3. Test</h4><p>Set it as the default chat model and send a message.</p>`,
+      docs: "https://docs.byesu.com/ru/clients/astrbot",
+    },
+    {
+      group: "bots",
+      name: "LangBot",
+      levelRu: "Средняя · панель управления",
+      levelEn: "Intermediate · control panel",
+      format: "OpenAI-compatible",
+      baseUrl: "https://byesu.com/v1",
+      model: "gpt-5.5",
+      ru: `<h4>1. Установите LangBot</h4><pre><code>git clone https://github.com/langbot-app/LangBot</code></pre><p>Завершите запуск по официальной инструкции и откройте <code>http://localhost:5300</code>.</p><h4>2. Добавьте модель</h4><p>Выберите NewAPI или OpenAI Compatible:</p><ul><li>Request URL: <code>https://byesu.com/v1</code></li><li>API Key: ваш <code>sk-...</code></li><li>Model: <code>gpt-5.5</code>, <code>claude-opus-4-8</code> или другая доступная модель</li></ul><h4>3. Подключите Pipeline</h4><p>В сценарии диалога выберите добавленную модель и проведите тест. Для базы знаний отдельно добавьте доступную Embedding-модель с тем же Base URL.</p>`,
+      en: `<h4>1. Install</h4><p>Deploy LangBot and open its panel at <code>http://localhost:5300</code>.</p><h4>2. Add model</h4><p>Select NewAPI/OpenAI Compatible and enter <code>https://byesu.com/v1</code>, your token, and a model ID.</p><h4>3. Pipeline</h4><p>Select the model in the conversation pipeline and test it.</p>`,
+      docs: "https://docs.byesu.com/ru/clients/langbot",
+    },
+    {
+      group: "bots",
+      name: "Memoh",
+      levelRu: "Продвинутая · самостоятельный хостинг",
+      levelEn: "Advanced · self-hosted",
+      format: "OpenAI-compatible",
+      baseUrl: "https://byesu.com/v1",
+      model: "claude-opus-4-8",
+      ru: `<h4>1. Установите Memoh</h4><pre><code>curl -fsSL https://memoh.sh | sudo sh</code></pre><p>При ручном развёртывании скопируйте <code>conf/app.docker.toml</code> в <code>config.toml</code>, затем выполните <code>docker compose up -d</code>. Панель обычно доступна на <code>http://localhost:8082</code>.</p><h4>2. Добавьте поставщика</h4><p>В Provider Management создайте OpenAI-compatible поставщика:</p><ul><li>API Base URL: <code>https://byesu.com/v1</code></li><li>API Key: ваш <code>sk-...</code></li></ul><h4>3. Импортируйте модели</h4><p>Получите список или добавьте модели вручную. Имя должно поддерживаться группой токена.</p><h4>4. Настройте бота</h4><p>Выберите импортированную модель как модель диалога нужного бота и проведите тест.</p>`,
+      en: `<h4>1. Install</h4><pre><code>curl -fsSL https://memoh.sh | sudo sh</code></pre><h4>2. Add provider</h4><p>Create an OpenAI-compatible provider with <code>https://byesu.com/v1</code> and your token.</p><h4>3. Import and assign models</h4><p>Import exact model IDs and assign one to the required bot.</p>`,
+      docs: "https://docs.byesu.com/ru/clients/memoh",
+    },
+    {
+      group: "bots",
+      name: "OpenClaw",
+      levelRu: "Продвинутая · мастер или JSON5",
+      levelEn: "Advanced · wizard or JSON5",
+      format: "OpenAI-compatible",
+      baseUrl: "https://byesu.com/v1",
+      model: "gpt-5.5",
+      ru: `<h4>Вариант 1: мастер настройки</h4><pre><code>openclaw onboard</code></pre><p>Выберите Custom OpenAI-compatible endpoint и укажите Base URL <code>https://byesu.com/v1</code>, ключ <code>sk-...</code> и имя модели.</p><h4>Вариант 2: JSON5</h4><p>Откройте <code>~/.openclaw/openclaw.json</code> и добавьте поставщика в <code>models.providers</code>:</p><pre><code>byesu: {
+  baseUrl: "https://byesu.com/v1",
+  apiKey: "&#36;{BYESU_API_KEY}",
+  api: "openai-completions",
+  models: [
+    { id: "claude-opus-4-8", name: "Byesu Claude Opus 4.8" }
+  ]
+}</code></pre><p>Создайте переменную <code>BYESU_API_KEY</code> и убедитесь, что её видит фоновый Gateway.</p><h4>Проверка</h4><pre><code>openclaw models list</code></pre>`,
+      en: `<h4>Option 1: wizard</h4><pre><code>openclaw onboard</code></pre><p>Select a custom OpenAI-compatible endpoint and enter <code>https://byesu.com/v1</code>, your token, and model.</p><h4>Option 2: JSON5</h4><p>Add a provider under <code>models.providers</code> in <code>~/.openclaw/openclaw.json</code>. Prefer the <code>BYESU_API_KEY</code> environment variable.</p><h4>Test</h4><pre><code>openclaw models list</code></pre>`,
+      docs: "https://docs.byesu.com/ru/clients/openclaw",
+    },
+    {
+      group: "bots",
+      name: "Hermes",
+      levelRu: "Продвинутая · мастер или YAML",
+      levelEn: "Advanced · wizard or YAML",
+      format: "OpenAI-compatible",
+      baseUrl: "https://byesu.com/v1",
+      model: "gpt-5.5",
+      ru: `<h4>Вариант 1: мастер</h4><pre><code>hermes model</code></pre><p>Выберите Custom OpenAI-compatible endpoint. Введите <code>https://byesu.com/v1</code>, свой ключ и точное имя модели.</p><h4>Вариант 2: YAML</h4><p>Измените секцию <code>model</code> в <code>~/.hermes/config.yaml</code>:</p><pre><code>model:
+  provider: "custom"
+  base_url: "https://byesu.com/v1"
+  api_key: "sk-ваш-токен"
+  default: "gpt-5.5"</code></pre><p>Безопаснее оставить ключ в <code>~/.hermes/.env</code>:</p><pre><code>OPENAI_API_KEY=sk-ваш-токен</code></pre><h4>Проверка</h4><pre><code>hermes</code></pre>`,
+      en: `<h4>Option 1: wizard</h4><pre><code>hermes model</code></pre><p>Select Custom OpenAI-compatible endpoint and enter <code>https://byesu.com/v1</code>, your token, and model.</p><h4>Option 2: YAML</h4><p>Edit <code>~/.hermes/config.yaml</code>, or keep the key as <code>OPENAI_API_KEY</code> in <code>~/.hermes/.env</code>.</p><h4>Test</h4><pre><code>hermes</code></pre>`,
+      docs: "https://docs.byesu.com/ru/clients/hermes",
+    },
+    {
+      group: "translation",
+      name: "Fluent Read",
+      levelRu: "Простая · расширение браузера",
+      levelEn: "Easy · browser extension",
+      format: "NewAPI",
+      baseUrl: "https://byesu.com",
+      model: "claude-opus-4-8",
+      ru: `<h4>1. Установите расширение</h4><p>Установите Fluent Read из магазина расширений своего браузера и откройте его настройки перевода.</p><h4>2. Добавьте Byesu</h4><p>Выберите встроенный движок <strong>NewAPI</strong>.</p><ul><li>NewAPI URL: <code>https://byesu.com</code> без <code>/v1</code></li><li>Access Token: ваш <code>sk-...</code></li><li>Model: выберите из списка или введите точное имя вручную</li></ul><p>Для NewAPI расширение само добавляет путь. Если выбрать обычный OpenAI-compatible движок, тогда используйте <code>https://byesu.com/v1</code>.</p><h4>3. Проверьте</h4><p>Откройте иностранную страницу и запустите перевод. При тайм-ауте сначала проверьте, не получился ли адрес <code>/v1/v1</code>.</p>`,
+      en: `<h4>1. Install</h4><p>Install Fluent Read and open translation settings.</p><h4>2. Configure</h4><p>Select NewAPI, enter <code>https://byesu.com</code> without <code>/v1</code>, your token, and a model. For a regular OpenAI-compatible engine use <code>https://byesu.com/v1</code>.</p><h4>3. Test</h4><p>Translate a foreign-language page.</p>`,
+      docs: "https://docs.byesu.com/ru/clients/fluent-read",
+    },
+    {
+      group: "translation",
+      name: "Luna Translator",
+      levelRu: "Средняя · импорт или ручная настройка",
+      levelEn: "Intermediate · import or manual setup",
+      format: "OpenAI-compatible",
+      baseUrl: "https://byesu.com/v1",
+      model: "gpt-5.5",
+      ru: `<h4>1. Установите Luna Translator</h4><p>Скачайте актуальную версию со страницы проекта и запустите программу.</p><h4>2. Добавьте Byesu</h4><p>Используйте импорт LunaTranslator из панели Byesu или создайте универсальный LLM-интерфейс вручную:</p><ul><li>Base URL: <code>https://byesu.com/v1</code></li><li>API Key: ваш <code>sk-...</code></li><li>Model: например <code>gpt-5.5</code> или <code>claude-opus-4-8</code></li></ul><p>Включите интерфейс и обновите список моделей. Base URL обязательно заканчивается на <code>/v1</code>.</p><h4>3. Проверьте</h4><p>Запустите перевод тестовой строки или игры. При пустом списке моделей проверьте ключ, адрес и группу токена.</p>`,
+      en: `<h4>1. Install</h4><p>Install Luna Translator from its project releases.</p><h4>2. Configure</h4><p>Import from the Byesu console or create a universal LLM interface with <code>https://byesu.com/v1</code>, your token, and an exact model ID.</p><h4>3. Test</h4><p>Enable the interface, refresh models, and translate a test line.</p>`,
+      docs: "https://docs.byesu.com/ru/clients/luna-translator",
+    },
+  ];
+
+  function renderConnectionGuides(lang) {
+    const apiLabel = lang === "ru" ? "Формат" : "Format";
+    const modelLabel = lang === "ru" ? "Модель" : "Model";
+    const docsLabel = lang === "ru" ? "Оригинальный гайд Byesu" : "Original Byesu guide";
+    return Object.keys(groups[lang])
+      .map((group) => {
+        const cards = appGuides
+          .filter((app) => app.group === group)
+          .map(
+            (app) => `<details class="catalog-card full-guide-card">
+              <summary><span><strong>${app.name}</strong><small>${lang === "ru" ? app.levelRu : app.levelEn}</small></span><span class="catalog-arrow">+</span></summary>
+              <div class="catalog-card-body">
+                <div class="connection-facts">
+                  <span><b>${apiLabel}</b>${app.format}</span>
+                  <span><b>Base URL</b><code>${app.baseUrl}</code></span>
+                  <span><b>${modelLabel}</b><code>${app.model}</code></span>
+                </div>
+                <div class="full-guide-content">${app[lang]}</div>
+                <a class="docs-link" href="${app.docs}" target="_blank" rel="noreferrer">${docsLabel} ↗</a>
+              </div>
+            </details>`,
+          )
+          .join("");
+        return `<div class="catalog-group"><h3>${groups[lang][group]}</h3><div class="catalog-grid full-guide-grid">${cards}</div></div>`;
+      })
+      .join("");
+  }
+
+  function updateGuide(guide, lang) {
+    guide.navigation = guide.navigation
+      .filter((item) => item.id !== "models")
+      .map((item) =>
+        item.id === "clients"
+          ? { id: "connections", label: lang === "ru" ? "Подключение API" : "API connection" }
+          : item,
+      );
+
+    guide.sections = guide.sections.filter(
+      (section) => section.id !== "model-catalog" && section.id !== "opencode",
+    );
+
+    const catalog = guide.sections.find((section) => section.id === "client-catalog");
+    catalog.id = "api-connections";
+    catalog.view = "connections";
+    catalog.title = lang === "ru" ? "Подключение API" : "API connection";
+    catalog.note =
+      lang === "ru"
+        ? "Полные инструкции для всех поддерживаемых приложений."
+        : "Complete setup guides for all supported applications.";
+    catalog.html =
+      (lang === "ru"
+        ? "<p>Выберите приложение и раскройте карточку. Внутри находятся адрес API, команды, пути к файлам и пошаговая настройка. Codex вынесен в отдельную вкладку.</p>"
+        : "<p>Select an application and open its card. Each card contains the API address, commands, file paths, and setup steps. Codex remains in its own section.</p>") +
+      renderConnectionGuides(lang);
+  }
+
+  window.__applyConnectionGuideUpdates = () => {
+    updateGuide(window.BUYER_GUIDE, "ru");
+    updateGuide(window.BUYER_GUIDE_EN, "en");
+  };
+})();
+
 (() => {
   const sourceLink = "https://docs.byesu.com/ru/clients";
   const groupLabels = {
@@ -608,3 +940,5 @@
       modelCatalog("en"),
   });
 })();
+
+window.__applyConnectionGuideUpdates();

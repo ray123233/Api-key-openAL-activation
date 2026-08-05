@@ -490,6 +490,10 @@
         gap: 10px;
       }
 
+      .full-guide-grid {
+        grid-template-columns: 1fr;
+      }
+
       .catalog-card summary,
       .error-grid summary {
         list-style: none;
@@ -543,6 +547,35 @@
       .catalog-card-body {
         padding: 0 16px 16px;
         border-top: 1px solid var(--line);
+      }
+
+      .full-guide-content {
+        margin-top: 18px;
+      }
+
+      .full-guide-content h4 {
+        margin: 24px 0 10px;
+        color: var(--text);
+        font-size: 17px;
+        line-height: 1.35;
+      }
+
+      .full-guide-content h4:first-child {
+        margin-top: 0;
+      }
+
+      .full-guide-content ul {
+        margin-bottom: 16px;
+      }
+
+      .guide-warning {
+        margin: 18px 0;
+        padding: 14px 16px;
+        border: 1px solid rgba(255, 140, 140, 0.3);
+        border-left: 3px solid var(--danger);
+        border-radius: 6px;
+        color: var(--danger);
+        background: rgba(255, 140, 140, 0.06);
       }
 
       .connection-facts {
