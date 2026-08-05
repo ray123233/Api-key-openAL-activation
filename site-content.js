@@ -518,7 +518,39 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
 
   function platformDetails(app, lang) {
     const note = platformNotes[app.name];
-    return note ? `<div class="platform-guide"><div class="platform-label">${lang === "ru" ? "Варианты по системе" : "Platform options"}</div>${note[lang]}</div>` : "";
+    if (!note) return "";
+
+    const source = note[lang];
+    const sections = [];
+    const headingPattern = /<h4>(.*?)<\/h4>/g;
+    let match;
+    let previousEnd = 0;
+    while ((match = headingPattern.exec(source))) {
+      if (sections.length) sections[sections.length - 1].html = source.slice(previousEnd, match.index);
+      sections.push({ label: match[1], html: "" });
+      previousEnd = headingPattern.lastIndex;
+    }
+    if (sections.length) sections[sections.length - 1].html = source.slice(previousEnd);
+    if (!sections.length) {
+      sections.push({ label: lang === "ru" ? "Все системы" : "All systems", html: source });
+    }
+
+    const expanded = [];
+    sections.forEach((section) => {
+      const labels = section.label.split(/\s*\/\s*/).filter(Boolean);
+      labels.forEach((label) => expanded.push({ label, html: section.html }));
+    });
+    const order = { macOS: 0, Windows: 1, Linux: 2 };
+    expanded.sort((a, b) => (order[a.label] ?? 9) - (order[b.label] ?? 9));
+    const tabs = expanded.map((section, index) => {
+      const key = section.label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      return `<button type="button" class="system-tab${index === 0 ? " is-active" : ""}" data-system="${key}" role="tab" aria-selected="${index === 0}">${section.label}</button>`;
+    }).join("");
+    const panels = expanded.map((section, index) => {
+      const key = section.label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      return `<div class="system-panel${index === 0 ? " is-active" : ""}" data-system-panel="${key}" role="tabpanel">${section.html}</div>`;
+    }).join("");
+    return `<div class="platform-guide"><div class="platform-label">${lang === "ru" ? "Выберите систему" : "Choose your system"}</div><div class="system-tabs" role="tablist">${tabs}</div><div class="system-panels">${panels}</div></div>`;
   }
 
   function troubleshootingDetails(app, lang) {
