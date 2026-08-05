@@ -521,6 +521,30 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
     return note ? `<div class="platform-guide"><div class="platform-label">${lang === "ru" ? "Варианты по системе" : "Platform options"}</div>${note[lang]}</div>` : "";
   }
 
+  function troubleshootingDetails(app, lang) {
+    const ru = lang === "ru";
+    const isClaude = /Claude|Anthropic/i.test(app.format + app.name);
+    const isNewApi = /NewAPI/i.test(app.format);
+    const endpointTip = isClaude
+      ? (ru
+        ? "Для Claude-совместимого подключения используйте адрес без /v1: https://byesu.com."
+        : "For a Claude-compatible connection, use the URL without /v1: https://byesu.com.")
+      : isNewApi
+        ? (ru
+          ? "Для NewAPI указывайте https://byesu.com без /v1, если клиент сам добавляет путь запроса."
+          : "For NewAPI, use https://byesu.com without /v1 when the client appends the request path itself.")
+        : (ru
+          ? "Проверьте, что Base URL заканчивается на /v1, а wire_api равен responses. Не добавляйте /responses вручную."
+          : "Make sure the Base URL ends in /v1 and wire_api is responses. Do not append /responses manually.");
+    const retryTip = ru
+      ? "Повторите запрос один раз. Если ошибка возвращается, перезапустите приложение и попробуйте другую модель."
+      : "Retry once. If the error returns, restart the app and try another model.";
+    const systemTip = ru
+      ? "На Windows проверьте PowerShell/WSL и PATH, а на macOS/Linux права запуска, Homebrew или системные зависимости."
+      : "On Windows check PowerShell/WSL and PATH; on macOS/Linux check execute permissions, Homebrew, and system dependencies.";
+    return `<aside class="stuck-box"><div class="stuck-title"><span class="stuck-icon">?</span>${ru ? "Застряли?" : "Stuck?"}</div><div class="stuck-item"><strong>${ru ? "Ошибка 401 / сбой аутентификации" : "401 error / authentication failure"}</strong><p>${ru ? "Токен введён неправильно или содержит лишние пробелы. Убедитесь, что ключ имеет вид" : "The token is incorrect or contains extra spaces. Make sure the key looks like"} <code>sk-xxxx</code>.</p></div><div class="stuck-item"><strong>${ru ? "Connection error / обрыв потока" : "Connection error / disconnected stream"}</strong><p>${retryTip}</p></div><div class="stuck-item"><strong>${ru ? "Неверный адрес или интерфейс" : "Wrong endpoint or interface"}</strong><p>${endpointTip}</p></div><div class="stuck-item"><strong>${ru ? "Команда не запускается" : "The command does not start"}</strong><p>${systemTip}</p></div></aside>`;
+  }
+
   function renderConnectionGuides(lang, extraGuides = []) {
     const apiLabel = lang === "ru" ? "Формат" : "Format";
     const modelLabel = lang === "ru" ? "Модель" : "Model";
@@ -538,7 +562,7 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
                   <span><b>Base URL</b><code>${app.baseUrl}</code></span>
                   <span><b>${modelLabel}</b><code>${app.model}</code></span>
                 </div>
-                <div class="full-guide-content">${platformDetails(app, lang)}${app[lang]}</div>
+                <div class="full-guide-content">${platformDetails(app, lang)}${app[lang]}${troubleshootingDetails(app, lang)}</div>
               </div>
             </details>`,
           )
