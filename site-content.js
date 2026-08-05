@@ -213,7 +213,7 @@ brew install --cask cc-switch</code></pre><h4>2. Add Byesu</h4><p>Select the Cla
       model: "claude-opus-4-8",
       ru: `<h4>1. Установите Claude Code</h4><p>Нужен Node.js 18+. На Windows также установите Git for Windows.</p><pre><code>npm install -g @anthropic-ai/claude-code
 claude --version</code></pre><p>На macOS/Linux можно использовать официальный установщик:</p><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
-        <h4>2. Подключите Byesu</h4><p>Быстрая настройка для Windows PowerShell:</p><pre><code>iex (irm 'https://docs.byesu.com/setup/claude.ps1')</code></pre><p>Или задайте переменные вручную:</p><pre><code>export ANTHROPIC_BASE_URL="https://byesu.com"
+        <h4>2. Подключите Byesu</h4><p>В Windows PowerShell задайте переменные окружения через «Параметры системы → Переменные среды». Для macOS/Linux добавьте в профиль оболочки:</p><pre><code>export ANTHROPIC_BASE_URL="https://byesu.com"
 export ANTHROPIC_API_KEY="sk-ваш-токен"
 export ANTHROPIC_MODEL="claude-opus-4-8"</code></pre><p>На Windows добавьте эти переменные через параметры системы. Если авторизация не проходит, используйте <code>ANTHROPIC_AUTH_TOKEN</code> вместо <code>ANTHROPIC_API_KEY</code>.</p>
         <h4>3. Запустите</h4><pre><code>claude</code></pre><p>Модель можно сменить командой <code>/model</code>. Ошибка «no available channel» означает, что группа токена не поддерживает выбранную модель.</p>`,
@@ -439,13 +439,13 @@ droid</code></pre>`,
     },
   ];
 
-  function renderConnectionGuides(lang) {
+  function renderConnectionGuides(lang, extraGuides = []) {
     const apiLabel = lang === "ru" ? "Формат" : "Format";
     const modelLabel = lang === "ru" ? "Модель" : "Model";
-    const docsLabel = lang === "ru" ? "Оригинальный гайд Byesu" : "Original Byesu guide";
+    const allGuides = [...extraGuides, ...appGuides];
     return Object.keys(groups[lang])
       .map((group) => {
-        const cards = appGuides
+        const cards = allGuides
           .filter((app) => app.group === group)
           .map(
             (app) => `<details class="catalog-card full-guide-card">
@@ -457,7 +457,6 @@ droid</code></pre>`,
                   <span><b>${modelLabel}</b><code>${app.model}</code></span>
                 </div>
                 <div class="full-guide-content">${app[lang]}</div>
-                <a class="docs-link" href="${app.docs}" target="_blank" rel="noreferrer">${docsLabel} ↗</a>
               </div>
             </details>`,
           )
@@ -468,31 +467,69 @@ droid</code></pre>`,
   }
 
   function updateGuide(guide, lang) {
+    const originalCodex = guide.sections.find((section) => section.id === "codex");
+    const codexErrors = guide.sections.find((section) => section.id === "codex-errors");
     guide.navigation = guide.navigation
-      .filter((item) => item.id !== "models")
+      .filter((item) => item.id !== "models" && item.id !== "codex")
       .map((item) =>
         item.id === "clients"
-          ? { id: "connections", label: lang === "ru" ? "Подключение API" : "API connection" }
+          ? { id: "clients", label: lang === "ru" ? "Клиенты" : "Clients" }
           : item,
       );
 
     guide.sections = guide.sections.filter(
-      (section) => section.id !== "model-catalog" && section.id !== "opencode",
+      (section) =>
+        section.id !== "model-catalog" &&
+        section.id !== "opencode" &&
+        section.id !== "codex" &&
+        section.id !== "codex-errors",
     );
 
     const catalog = guide.sections.find((section) => section.id === "client-catalog");
-    catalog.id = "api-connections";
-    catalog.view = "connections";
-    catalog.title = lang === "ru" ? "Подключение API" : "API connection";
+    catalog.id = "clients";
+    catalog.view = "clients";
+    catalog.title = lang === "ru" ? "Клиенты" : "Clients";
     catalog.note =
       lang === "ru"
-        ? "Полные инструкции для всех поддерживаемых приложений."
-        : "Complete setup guides for all supported applications.";
+        ? "Полные инструкции для приложений и способов подключения API."
+        : "Complete API setup guides for supported applications.";
+    const codexHtml = originalCodex
+      ? originalCodex.html + (codexErrors ? codexErrors.html : "")
+      : "";
+    const codexGuide = {
+      group: "code",
+      name: "Codex (ChatGPT)",
+      levelRu: "Рекомендуемый вариант · подробная инструкция",
+      levelEn: "Recommended option · full guide",
+      format: "OpenAI / Responses",
+      baseUrl: "https://byesu.com/v1",
+      model: "gpt-5.6-terra",
+      ru: lang === "ru" ? codexHtml : "",
+      en: lang === "en" ? codexHtml : "",
+      docs: "https://docs.byesu.com/ru/clients/codex-cli",
+    };
+    const codexCliGuide = {
+      ...codexGuide,
+      name: "Codex CLI",
+      levelRu: "Командная строка · та же настройка",
+      levelEn: "Command line · same setup",
+    };
+    const codexAppGuide = {
+      ...codexGuide,
+      name: "Codex App",
+      levelRu: "Приложение Codex · та же настройка",
+      levelEn: "Codex desktop app · same setup",
+      docs: "https://docs.byesu.com/ru/clients/codex-app",
+    };
     catalog.html =
       (lang === "ru"
-        ? "<p>Выберите приложение и раскройте карточку. Внутри находятся адрес API, команды, пути к файлам и пошаговая настройка. Codex вынесен в отдельную вкладку.</p>"
-        : "<p>Select an application and open its card. Each card contains the API address, commands, file paths, and setup steps. Codex remains in its own section.</p>") +
-      renderConnectionGuides(lang);
+        ? "<p>Выберите приложение и раскройте карточку. Внутри находятся адрес API, команды, пути к файлам и пошаговая настройка. Codex и Codex CLI находятся здесь же.</p>"
+        : "<p>Select an application and open its card. Each card contains the API address, commands, file paths, and setup steps. Codex and Codex CLI are included here too.</p>") +
+      renderConnectionGuides(lang, [codexGuide, codexCliGuide, codexAppGuide]);
+    guide.primaryAction = {
+      label: lang === "ru" ? "Открыть клиентов" : "Open clients",
+      href: "#clients",
+    };
   }
 
   window.__applyConnectionGuideUpdates = () => {
