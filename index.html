@@ -598,6 +598,55 @@
         background: rgba(255, 140, 140, 0.06);
       }
 
+      .stuck-box {
+        margin: 24px 0 4px;
+        padding: 16px;
+        border: 1px solid rgba(241, 189, 99, 0.3);
+        border-left: 3px solid var(--warm);
+        border-radius: 6px;
+        background: rgba(241, 189, 99, 0.055);
+      }
+
+      .stuck-title {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 14px;
+        color: var(--text);
+        font-size: 18px;
+        font-weight: 800;
+      }
+
+      .stuck-icon {
+        display: grid;
+        place-items: center;
+        width: 22px;
+        height: 22px;
+        border: 1px solid rgba(241, 189, 99, 0.55);
+        border-radius: 50%;
+        color: var(--warm);
+        font-size: 14px;
+        line-height: 1;
+      }
+
+      .stuck-item + .stuck-item {
+        margin-top: 13px;
+        padding-top: 13px;
+        border-top: 1px solid rgba(241, 189, 99, 0.14);
+      }
+
+      .stuck-item strong {
+        display: block;
+        color: var(--text);
+        font-size: 14px;
+      }
+
+      .stuck-item p {
+        margin: 5px 0 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
       .connection-facts {
         display: grid;
         gap: 8px;
@@ -883,7 +932,7 @@
       </section>
     </main>
 
-    <script src="./site-content.js?v=20260806-4"></script>
+    <script src="./site-content.js?v=20260806-5"></script>
     <script>
       const guides = {
         ru: window.BUYER_GUIDE,
