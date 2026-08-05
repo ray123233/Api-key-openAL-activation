@@ -555,6 +555,11 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
 
   function troubleshootingDetails(app, lang) {
     const ru = lang === "ru";
+    if (app.name === "Codex (ChatGPT)") {
+      return ru
+        ? `<aside class="stuck-box"><div class="stuck-title"><span class="stuck-icon">?</span>Застряли?</div><div class="stuck-item"><strong>Ошибка 401 / сбой аутентификации</strong><p>Токен введён неправильно или содержит лишние пробелы. Убедитесь, что ключ имеет вид <code>sk-xxxx</code>.</p></div><div class="stuck-item"><strong>Connection error / обрыв потока</strong><p>Повторите запрос один раз. Если ошибка возвращается, перезапустите приложение и попробуйте другую модель.</p></div><div class="stuck-item"><strong>Неверный адрес или интерфейс</strong><p>Для Claude-совместимого подключения используйте адрес без <code>/v1</code>: <code>https://byesu.com</code>.</p></div><div class="stuck-item"><strong>Команда не запускается</strong><p>На Windows проверьте PowerShell/WSL и PATH, а на macOS/Linux права запуска, Homebrew или системные зависимости.</p></div></aside>`
+        : `<aside class="stuck-box"><div class="stuck-title"><span class="stuck-icon">?</span>Stuck?</div><div class="stuck-item"><strong>401 error / authentication failure</strong><p>The token is incorrect or contains extra spaces. Make sure the key looks like <code>sk-xxxx</code>.</p></div><div class="stuck-item"><strong>Connection error / disconnected stream</strong><p>Retry once. If the error returns, restart the app and try another model.</p></div><div class="stuck-item"><strong>Wrong endpoint or interface</strong><p>For a Claude-compatible connection, use the URL without <code>/v1</code>: <code>https://byesu.com</code>.</p></div><div class="stuck-item"><strong>The command does not start</strong><p>On Windows check PowerShell/WSL and PATH; on macOS/Linux check execute permissions, Homebrew, and system dependencies.</p></div></aside>`;
+    }
     const isClaude = /Claude|Anthropic/i.test(app.format + app.name);
     const isNewApi = /NewAPI/i.test(app.format);
     const endpointTip = isClaude
