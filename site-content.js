@@ -660,7 +660,7 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
     if (helpSection) {
       helpSection.title = lang === "ru" ? "Частые ошибки" : "Common errors";
       helpSection.note = lang === "ru" ? "Частые ошибки и решения для всех подключений." : "Common errors and fixes for every connection.";
-      helpSection.html = `<div class="stuck-box help-frame">${helpSection.html}${renderTroubleshootingGuides(lang)}</div>`;
+      helpSection.html = `<div class="stuck-box help-frame">${renderTroubleshootingGuides(lang)}${helpSection.html}</div>`;
     }
     catalog.html =
       (lang === "ru"
