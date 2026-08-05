@@ -473,7 +473,7 @@ droid</code></pre>`,
       .filter((item) => item.id !== "models" && item.id !== "codex")
       .map((item) =>
         item.id === "clients"
-          ? { id: "clients", label: lang === "ru" ? "Клиенты" : "Clients" }
+          ? { id: "connections", label: lang === "ru" ? "Подключение API" : "API connection" }
           : item,
       );
 
@@ -486,9 +486,9 @@ droid</code></pre>`,
     );
 
     const catalog = guide.sections.find((section) => section.id === "client-catalog");
-    catalog.id = "clients";
-    catalog.view = "clients";
-    catalog.title = lang === "ru" ? "Клиенты" : "Clients";
+    catalog.id = "api-connections";
+    catalog.view = "connections";
+    catalog.title = lang === "ru" ? "Подключение API" : "API connection";
     catalog.note =
       lang === "ru"
         ? "Полные инструкции для приложений и способов подключения API."
@@ -527,8 +527,8 @@ droid</code></pre>`,
         : "<p>Select an application and open its card. Each card contains the API address, commands, file paths, and setup steps. Codex and Codex CLI are included here too.</p>") +
       renderConnectionGuides(lang, [codexGuide, codexCliGuide, codexAppGuide]);
     guide.primaryAction = {
-      label: lang === "ru" ? "Открыть клиентов" : "Open clients",
-      href: "#clients",
+      label: lang === "ru" ? "Открыть подключение API" : "Open API connection",
+      href: "#api-connections",
     };
   }
 
