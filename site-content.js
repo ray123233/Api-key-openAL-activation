@@ -439,6 +439,88 @@ droid</code></pre>`,
     },
   ];
 
+  const platformNotes = {
+    "CC Switch": {
+      ru: `<h4>Windows</h4><p>Скачайте Windows-релиз CC Switch, установите приложение и откройте категорию Claude.</p><h4>macOS</h4><pre><code>brew tap farion1231/ccswitch
+brew install --cask cc-switch</code></pre><h4>Linux</h4><p>Скачайте пакет для своего дистрибутива, установите его и запустите CC Switch из меню приложений.</p>`,
+      en: `<h4>Windows</h4><p>Download the Windows CC Switch release, install it, and open the Claude category.</p><h4>macOS</h4><pre><code>brew tap farion1231/ccswitch
+brew install --cask cc-switch</code></pre><h4>Linux</h4><p>Install the package for your distribution and launch CC Switch from the applications menu.</p>`,
+    },
+    "Claude Code CLI": {
+      ru: `<h4>Windows</h4><p>Установите Node.js 18+ и Git for Windows. Запускайте Claude Code из Git Bash или PowerShell.</p><h4>macOS / Linux</h4><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre><p>После установки перезапустите терминал, чтобы команда <code>claude</code> появилась в PATH.</p>`,
+      en: `<h4>Windows</h4><p>Install Node.js 18+ and Git for Windows. Run Claude Code from Git Bash or PowerShell.</p><h4>macOS / Linux</h4><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre><p>Restart the terminal after installation so <code>claude</code> is available in PATH.</p>`,
+    },
+    OpenCode: {
+      ru: `<h4>Windows</h4><p>Установите Node.js 18+, затем выполните в PowerShell:</p><pre><code>npm install -g opencode-ai
+opencode --version</code></pre><h4>macOS</h4><pre><code>brew install anomalyco/tap/opencode</code></pre><h4>Linux</h4><pre><code>curl -fsSL https://opencode.ai/install | bash
+opencode --version</code></pre><p>Один и тот же <code>opencode.json</code> можно использовать на всех системах; путь глобального файла на macOS/Linux: <code>~/.config/opencode/opencode.json</code>.</p>`,
+      en: `<h4>Windows</h4><p>Install Node.js 18+ and run in PowerShell:</p><pre><code>npm install -g opencode-ai
+opencode --version</code></pre><h4>macOS</h4><pre><code>brew install anomalyco/tap/opencode</code></pre><h4>Linux</h4><pre><code>curl -fsSL https://opencode.ai/install | bash
+opencode --version</code></pre><p>Use <code>~/.config/opencode/opencode.json</code> on macOS/Linux; the project-level file works on every OS.</p>`,
+    },
+    "Roo Code": {
+      ru: `<h4>Windows / macOS / Linux</h4><p>Roo Code устанавливается одинаково: откройте VS Code, нажмите <code>Ctrl/⌘ + Shift + X</code>, найдите расширение Roo Code и установите его. Настройки API находятся внутри расширения, отдельный конфигурационный файл не нужен.</p>`,
+      en: `<h4>Windows / macOS / Linux</h4><p>Install Roo Code from the VS Code extensions view with <code>Ctrl/⌘ + Shift + X</code>. API settings are stored inside the extension; no separate config file is required.</p>`,
+    },
+    "Factory Droid CLI": {
+      ru: `<h4>Windows</h4><pre><code>irm https://app.factory.ai/cli/windows | iex</code></pre><p>Если PowerShell блокирует запуск, используйте <code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code>.</p><h4>macOS / Linux</h4><p>Установите Droid CLI способом для Unix-систем из установщика Factory AI, затем проверьте командой <code>droid --version</code>. Файл настроек в обеих системах находится в <code>~/.factory/config.json</code>.</p>`,
+      en: `<h4>Windows</h4><pre><code>irm https://app.factory.ai/cli/windows | iex</code></pre><p>If PowerShell blocks the script, use <code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code>.</p><h4>macOS / Linux</h4><p>Install the Unix Droid CLI package from Factory AI and verify with <code>droid --version</code>. The config path is <code>~/.factory/config.json</code>.</p>`,
+    },
+    "Cherry Studio": {
+      ru: `<h4>Windows / macOS</h4><p>Скачайте установщик Cherry Studio для своей системы, установите приложение и откройте его раздел поставщиков моделей. Поле API Host заполняется одинаково: <code>https://byesu.com</code>; Cherry сам добавляет путь запроса.</p>`,
+      en: `<h4>Windows / macOS</h4><p>Download the Cherry Studio installer for your system, install it, and open model providers. Use <code>https://byesu.com</code> as API Host; Cherry adds the request path.</p>`,
+    },
+    DeepChat: {
+      ru: `<h4>Windows / macOS / Linux</h4><p>Скачайте соответствующий установщик DeepChat, установите программу и откройте «Настройки → Сервисы моделей». Интерфейс и поля API одинаковы на всех трёх системах.</p>`,
+      en: `<h4>Windows / macOS / Linux</h4><p>Install the DeepChat package for your system and open Settings → Model Services. The API fields are the same on all three systems.</p>`,
+    },
+    AionUi: {
+      ru: `<h4>Windows / macOS / Linux</h4><p>Откройте страницу релизов AionUi, скачайте файл под свою систему и установите приложение. Настройки модели находятся в Settings, а адрес API для OpenAI-совместимого агента одинаков на всех системах.</p>`,
+      en: `<h4>Windows / macOS / Linux</h4><p>Download the AionUi release for your system and install it. Model settings are under Settings, and the OpenAI-compatible endpoint is the same on every OS.</p>`,
+    },
+    "Claude Desktop": {
+      ru: `<h4>Windows / macOS</h4><p>Официальная программа Claude Desktop доступна для Windows и macOS, но не позволяет заменить адрес API. Поэтому в этих системах используйте Claude Code CLI, Cherry Studio, DeepChat или AionUi.</p>`,
+      en: `<h4>Windows / macOS</h4><p>The official Claude Desktop app is available for Windows and macOS but does not allow a custom API endpoint. Use Claude Code CLI, Cherry Studio, DeepChat, or AionUi instead.</p>`,
+    },
+    AstrBot: {
+      ru: `<h4>Windows</h4><p>Используйте Docker Desktop или WSL2, затем откройте порт панели AstrBot в браузере.</p><h4>macOS / Linux</h4><p>Используйте Docker Engine или ручную установку. После запуска откройте панель по адресу сервера и создайте поставщика в разделе Provider.</p>`,
+      en: `<h4>Windows</h4><p>Use Docker Desktop or WSL2, then open the AstrBot panel port in a browser.</p><h4>macOS / Linux</h4><p>Use Docker Engine or a native install. Open the server panel after startup and create the provider under Provider.</p>`,
+    },
+    LangBot: {
+      ru: `<h4>Windows</h4><p>Запустите LangBot через Docker Desktop или WSL2. Панель после запуска открывается на <code>http://localhost:5300</code>.</p><h4>macOS / Linux</h4><pre><code>git clone https://github.com/langbot-app/LangBot</code></pre><p>Запустите проект по инструкции в его каталоге и откройте локальную панель.</p>`,
+      en: `<h4>Windows</h4><p>Run LangBot with Docker Desktop or WSL2. The panel is usually available at <code>http://localhost:5300</code>.</p><h4>macOS / Linux</h4><pre><code>git clone https://github.com/langbot-app/LangBot</code></pre><p>Start the project from its directory and open the local panel.</p>`,
+    },
+    Memoh: {
+      ru: `<h4>Windows</h4><p>Установите Docker Desktop с поддержкой WSL2, разверните Memoh из PowerShell или WSL и откройте панель на <code>http://localhost:8082</code>.</p><h4>macOS / Linux</h4><pre><code>curl -fsSL https://memoh.sh | sudo sh</code></pre><p>Для ручного запуска используйте Docker Compose и файл <code>config.toml</code>.</p>`,
+      en: `<h4>Windows</h4><p>Install Docker Desktop with WSL2 support, deploy Memoh from PowerShell or WSL, and open <code>http://localhost:8082</code>.</p><h4>macOS / Linux</h4><pre><code>curl -fsSL https://memoh.sh | sudo sh</code></pre><p>For a manual deployment use Docker Compose and <code>config.toml</code>.</p>`,
+    },
+    OpenClaw: {
+      ru: `<h4>Windows</h4><p>Запускайте OpenClaw через WSL2 или Docker Desktop. Переменную <code>BYESU_API_KEY</code> добавьте в окружение того же WSL/Docker-сервиса.</p><h4>macOS / Linux</h4><pre><code>openclaw onboard
+openclaw models list</code></pre><p>При ручной настройке используется <code>~/.openclaw/openclaw.json</code>.</p>`,
+      en: `<h4>Windows</h4><p>Run OpenClaw through WSL2 or Docker Desktop. Set <code>BYESU_API_KEY</code> in the same WSL/Docker service environment.</p><h4>macOS / Linux</h4><pre><code>openclaw onboard
+openclaw models list</code></pre><p>Manual configuration uses <code>~/.openclaw/openclaw.json</code>.</p>`,
+    },
+    Hermes: {
+      ru: `<h4>Windows</h4><p>Запустите Hermes в WSL2, установите его зависимости внутри Linux-окружения и храните конфигурацию в домашней папке WSL.</p><h4>macOS / Linux</h4><pre><code>hermes model
+hermes</code></pre><p>Файл настроек: <code>~/.hermes/config.yaml</code>, ключ можно хранить в <code>~/.hermes/.env</code>.</p>`,
+      en: `<h4>Windows</h4><p>Run Hermes in WSL2, install its dependencies inside Linux, and keep the config in the WSL home directory.</p><h4>macOS / Linux</h4><pre><code>hermes model
+hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be stored in <code>~/.hermes/.env</code>.</p>`,
+    },
+    "Fluent Read": {
+      ru: `<h4>Windows / macOS / Linux</h4><p>Установите расширение в браузер на своей системе. Настройки Fluent Read находятся в меню расширений и не зависят от операционной системы; для NewAPI оставьте URL без <code>/v1</code>.</p>`,
+      en: `<h4>Windows / macOS / Linux</h4><p>Install the browser extension on your system. Fluent Read settings are in the browser extensions menu; for NewAPI keep the URL without <code>/v1</code>.</p>`,
+    },
+    "Luna Translator": {
+      ru: `<h4>Windows</h4><p>Скачайте Windows-сборку Luna Translator, установите её и откройте настройки LLM.</p><h4>macOS / Linux</h4><p>Если для вашей системы нет отдельной сборки, используйте совместимый релиз через Wine или виртуальную машину. Поля API остаются теми же: URL с <code>/v1</code>, ключ и имя модели.</p>`,
+      en: `<h4>Windows</h4><p>Install the Windows Luna Translator build and open LLM settings.</p><h4>macOS / Linux</h4><p>If no native build is available, use a compatible release through Wine or a virtual machine. The API fields remain the same: a URL ending in <code>/v1</code>, token, and model.</p>`,
+    },
+  };
+
+  function platformDetails(app, lang) {
+    const note = platformNotes[app.name];
+    return note ? `<div class="platform-guide"><div class="platform-label">${lang === "ru" ? "Варианты по системе" : "Platform options"}</div>${note[lang]}</div>` : "";
+  }
+
   function renderConnectionGuides(lang, extraGuides = []) {
     const apiLabel = lang === "ru" ? "Формат" : "Format";
     const modelLabel = lang === "ru" ? "Модель" : "Model";
@@ -456,7 +538,7 @@ droid</code></pre>`,
                   <span><b>Base URL</b><code>${app.baseUrl}</code></span>
                   <span><b>${modelLabel}</b><code>${app.model}</code></span>
                 </div>
-                <div class="full-guide-content">${app[lang]}</div>
+                <div class="full-guide-content">${platformDetails(app, lang)}${app[lang]}</div>
               </div>
             </details>`,
           )
