@@ -587,7 +587,7 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
     return troubleshootingDetails(openCode, lang)
       .replace(/^<aside class="stuck-box">/, "")
       .replace(/<\/aside>$/, "")
-      .replace(/^<div class="stuck-title">[\s\S]*?<\/div>/, "");
+      .replace(/<div class="stuck-title">[\s\S]*?<\/div>/, "");
   }
 
   function renderConnectionGuides(lang, extraGuides = []) {
