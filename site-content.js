@@ -586,7 +586,8 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
     const openCode = appGuides.find((app) => app.name === "OpenCode") || appGuides[0];
     return troubleshootingDetails(openCode, lang)
       .replace(/^<aside class="stuck-box">/, "")
-      .replace(/<\/aside>$/, "");
+      .replace(/<\/aside>$/, "")
+      .replace(/^<div class="stuck-title">[\s\S]*?<\/div>/, "");
   }
 
   function renderConnectionGuides(lang, extraGuides = []) {
