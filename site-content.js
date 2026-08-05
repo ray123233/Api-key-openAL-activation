@@ -582,9 +582,9 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
     return `<aside class="stuck-box"><div class="stuck-title"><span class="stuck-icon">?</span>${ru ? "Застряли?" : "Stuck?"}</div><div class="stuck-item"><strong>${ru ? "Ошибка 401 / сбой аутентификации" : "401 error / authentication failure"}</strong><p>${ru ? "Токен введён неправильно или содержит лишние пробелы. Убедитесь, что ключ имеет вид" : "The token is incorrect or contains extra spaces. Make sure the key looks like"} <code>sk-xxxx</code>.</p></div><div class="stuck-item"><strong>${ru ? "Connection error / обрыв потока" : "Connection error / disconnected stream"}</strong><p>${retryTip}</p></div><div class="stuck-item"><strong>${ru ? "Неверный адрес или интерфейс" : "Wrong endpoint or interface"}</strong><p>${endpointTip}</p></div><div class="stuck-item"><strong>${ru ? "Команда не запускается" : "The command does not start"}</strong><p>${systemTip}</p></div></aside>`;
   }
 
-  function renderTroubleshootingGuides(lang, extraGuides = []) {
-    const allGuides = [...extraGuides, ...appGuides];
-    return `<div class="error-grid stuck-guide-grid">${allGuides.map((app) => `<details><summary>${app.name}</summary>${troubleshootingDetails(app, lang)}</details>`).join("")}</div>`;
+  function renderTroubleshootingGuides(lang) {
+    const openCode = appGuides.find((app) => app.name === "OpenCode") || appGuides[0];
+    return troubleshootingDetails(openCode, lang);
   }
 
   function renderConnectionGuides(lang, extraGuides = []) {
@@ -658,7 +658,7 @@ hermes</code></pre><p>Config: <code>~/.hermes/config.yaml</code>; the key can be
     if (helpSection) {
       helpSection.title = lang === "ru" ? "Застряли?" : "Stuck?";
       helpSection.note = lang === "ru" ? "Частые ошибки и решения для всех подключений." : "Common errors and fixes for every connection.";
-      helpSection.html += renderTroubleshootingGuides(lang, [codexGuide]);
+      helpSection.html += renderTroubleshootingGuides(lang);
     }
     catalog.html =
       (lang === "ru"
