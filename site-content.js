@@ -508,24 +508,11 @@ droid</code></pre>`,
       en: lang === "en" ? codexHtml : "",
       docs: "https://docs.byesu.com/ru/clients/codex-cli",
     };
-    const codexCliGuide = {
-      ...codexGuide,
-      name: "Codex CLI",
-      levelRu: "Командная строка · та же настройка",
-      levelEn: "Command line · same setup",
-    };
-    const codexAppGuide = {
-      ...codexGuide,
-      name: "Codex App",
-      levelRu: "Приложение Codex · та же настройка",
-      levelEn: "Codex desktop app · same setup",
-      docs: "https://docs.byesu.com/ru/clients/codex-app",
-    };
     catalog.html =
       (lang === "ru"
-        ? "<p>Выберите приложение и раскройте карточку. Внутри находятся адрес API, команды, пути к файлам и пошаговая настройка. Codex и Codex CLI находятся здесь же.</p>"
-        : "<p>Select an application and open its card. Each card contains the API address, commands, file paths, and setup steps. Codex and Codex CLI are included here too.</p>") +
-      renderConnectionGuides(lang, [codexGuide, codexCliGuide, codexAppGuide]);
+        ? "<p>Выберите приложение и раскройте карточку. Внутри находятся адрес API, команды, пути к файлам и пошаговая настройка. Инструкция Codex находится здесь же.</p>"
+        : "<p>Select an application and open its card. Each card contains the API address, commands, file paths, and setup steps. The Codex guide is included here too.</p>") +
+      renderConnectionGuides(lang, [codexGuide]);
     guide.primaryAction = {
       label: lang === "ru" ? "Открыть подключение API" : "Open API connection",
       href: "#api-connections",
