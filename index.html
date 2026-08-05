@@ -647,6 +647,51 @@
         line-height: 1.6;
       }
 
+      .system-tabs {
+        display: flex;
+        gap: 4px;
+        margin: 0 -2px 14px;
+        padding: 0 2px;
+        border-bottom: 1px solid var(--line);
+        overflow-x: auto;
+      }
+
+      .system-tab {
+        min-height: 38px;
+        padding: 0 14px;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        color: var(--muted);
+        background: transparent;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 750;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+
+      .system-tab:hover,
+      .system-tab.is-active {
+        color: var(--accent-strong);
+      }
+
+      .system-tab.is-active {
+        border-bottom-color: var(--accent-strong);
+      }
+
+      .system-tab:focus-visible {
+        outline: 2px solid var(--warm);
+        outline-offset: -2px;
+      }
+
+      .system-panel {
+        display: none;
+      }
+
+      .system-panel.is-active {
+        display: block;
+      }
+
       .connection-facts {
         display: grid;
         gap: 8px;
@@ -893,6 +938,159 @@
           grid-template-columns: 1fr;
         }
       }
+      /* Light documentation theme */
+      :root {
+        color-scheme: light;
+        --bg: #f5f7fa;
+        --bg-raised: #ffffff;
+        --surface: #ffffff;
+        --surface-strong: #f0f3f7;
+        --text: #1b2430;
+        --muted: #657180;
+        --accent: #6857d9;
+        --accent-strong: #5645c5;
+        --warm: #c58a22;
+        --danger: #c83d4d;
+        --line: #e2e6ec;
+        --line-strong: #c9c1f4;
+        --shadow: 0 12px 32px rgba(27, 36, 48, 0.08);
+      }
+
+      body {
+        color: var(--text);
+        background: #f5f7fa;
+      }
+
+      body::before {
+        background-image:
+          linear-gradient(rgba(27, 36, 48, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(27, 36, 48, 0.035) 1px, transparent 1px);
+        opacity: 0.55;
+      }
+
+      .hero {
+        border-color: #ddd8f7;
+        background: #ffffff;
+        box-shadow: var(--shadow);
+      }
+
+      .hero::before {
+        background: var(--accent);
+      }
+
+      .eyebrow,
+      .language-switch,
+      .author-badge,
+      .guide-menu,
+      .panel,
+      .catalog-card,
+      .connection-grid > div,
+      .model-card,
+      .error-grid details {
+        background: #ffffff;
+      }
+
+      .eyebrow {
+        background: #f1effd;
+      }
+
+      .author-badge,
+      .language-switch {
+        border-color: var(--line);
+      }
+
+      .language-button:hover,
+      .guide-menu-button:hover {
+        background: #f0effb;
+      }
+
+      .language-button.is-active,
+      .guide-menu-button.is-active {
+        color: #ffffff;
+        background: var(--accent);
+      }
+
+      .panel,
+      .guide-menu {
+        border-color: var(--line);
+        box-shadow: var(--shadow);
+      }
+
+      .section-body,
+      .hero p {
+        color: var(--muted);
+      }
+
+      .section-body code,
+      .tip code,
+      .connection-grid code,
+      .connection-facts code {
+        border-color: #e0dcfa;
+        color: #5540b4;
+        background: #f4f2ff;
+      }
+
+      .section-body pre {
+        border-color: #2b2f3a;
+        border-left-color: #8b7ce8;
+        background: #17191f;
+        box-shadow: none;
+      }
+
+      .section-body pre code {
+        border: 0;
+        color: #edf0f7;
+        background: transparent;
+      }
+
+      .catalog-card[open] {
+        border-color: #bcb4ef;
+        background: #fcfbff;
+      }
+
+      .platform-guide {
+        border-color: #e7d7ad;
+        background: #fffcf3;
+      }
+
+      .platform-label {
+        color: #9a6a13;
+      }
+
+      .system-tab:hover,
+      .system-tab.is-active {
+        color: var(--accent-strong);
+      }
+
+      .stuck-box {
+        border-color: #ead9a8;
+        background: #fffaf0;
+      }
+
+      .stuck-title,
+      .stuck-item strong,
+      .catalog-card summary strong,
+      .catalog-group h3,
+      h2 {
+        color: var(--text);
+      }
+
+      .stuck-item p,
+      .connection-facts span,
+      .connection-grid small {
+        color: var(--muted);
+      }
+
+      .guide-warning,
+      .section-body p[style*="color:#dc2626"] {
+        background: #fff3f4;
+      }
+
+      @media (max-width: 700px) {
+        .hero {
+          padding: 28px 22px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -932,7 +1130,7 @@
       </section>
     </main>
 
-    <script src="./site-content.js?v=20260806-5"></script>
+    <script src="./site-content.js?v=20260806-6"></script>
     <script>
       const guides = {
         ru: window.BUYER_GUIDE,
@@ -1056,6 +1254,22 @@
       document.getElementById("guide-menu").addEventListener("click", (event) => {
         const button = event.target.closest("[data-view]");
         if (button) selectView(button.dataset.view);
+      });
+
+      document.addEventListener("click", (event) => {
+        const button = event.target.closest(".system-tab");
+        if (!button) return;
+        const guide = button.closest(".platform-guide");
+        if (!guide) return;
+        const system = button.dataset.system;
+        guide.querySelectorAll(".system-tab").forEach((item) => {
+          const active = item === button;
+          item.classList.toggle("is-active", active);
+          item.setAttribute("aria-selected", String(active));
+        });
+        guide.querySelectorAll(".system-panel").forEach((panel) => {
+          panel.classList.toggle("is-active", panel.dataset.systemPanel === system);
+        });
       });
 
       document.getElementById("primary-link").addEventListener("click", (event) => {
